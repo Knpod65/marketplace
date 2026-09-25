@@ -593,7 +593,7 @@ function renderWarnings(){
   const el = document.getElementById('warnings');
   const probs = DATA.problems.map(t => t.replace(/\(1\/2569-FINAL\|(\d+)\|(\d+)\|\d+\)/, 'วิชา $1 ตอน $2'));
   const list = current === 'all' ? probs : [];
-  el.innerHTML = list.length ? `<div class="warn"><b>ยังต้องหาคนเพิ่ม:</b> ${list.map(esc).join(' · ')}</div>` : '';
+  el.innerHTML = list.length ? `<div class="warn"><b>ยังต้องตัดสินใจ:</b><br>${list.map(esc).join('<br>')}</div>` : '';
 }
 
 function render(){
