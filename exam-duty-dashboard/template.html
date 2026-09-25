@@ -294,6 +294,11 @@ const staffCount = pid => (dutiesBy[pid] || []).filter(d => d.role !== 'own').le
 const roomsAt = (date, time) => Object.entries(DATA.rooms).filter(([k]) => k.startsWith(date+'|'+time+'|')).map(([,v]) => v);
 const peopleAtRoom = (date, time, room) => DATA.duties.filter(d => d.date===date && d.time===time && d.room===room);
 const slotPeople = (date, time, role) => DATA.duties.filter(d => d.date===date && d.time===time && d.role===role).map(d => byId[d.pid]);
+const bldgOfRoom = room => (DATA.roomBldg || {})[room] || 'PS';
+const bldgOfDist = (date, time, name) => (DATA.distBldg || {})[`${date}|${time}|${name}`];
+// distributors serving this room: when a slot has one distributor per building, keep only this room's building
+const distFor = (date, time, room) => slotPeople(date, time, 'dist').map(x => x.name)
+  .filter(n => { const b = bldgOfDist(date, time, n); return !b || b === bldgOfRoom(room); });
 const dayOpener = date => DATA.duties.filter(d => d.date===date && d.role==='opener').map(d => byId[d.pid]);
 const median = arr => { const s=[...arr].sort((a,b)=>a-b); const m=s.length>>1; return s.length? (s.length%2? s[m] : (s[m-1]+s[m])/2) : 0; };
 const staffLoads = staff.filter(p => staffCount(p.id) > 0).map(p => staffCount(p.id));
@@ -525,10 +530,11 @@ function renderMyTable(){
       const inRoom = peopleAtRoom(d.date, d.time, d.room).map(x => byId[x.pid].name);
       es.forEach(e => { if (e.distHelp) inRoom.push(e.distHelp); });
       const others = [...new Set(inRoom)].filter(x => x !== p.name);
-      const dist = slotPeople(d.date, d.time, 'dist').map(x=>x.name);
+      const dist = distFor(d.date, d.time, d.room);
       ppl = `คุมด้วยกัน: ${namesHtml(others)}<br>จ่ายข้อสอบ: ${namesHtml(dist)}`;
     } else if (d.role === 'dist'){
-      const rs = roomsAt(d.date, d.time).flat();
+      const myB = bldgOfDist(d.date, d.time, p.name);
+      const rs = roomsAt(d.date, d.time).flat().filter(r => !myB || bldgOfRoom(r.room) === myB);
       const help = helpRooms.filter(r => rs.includes(r));
       course = `<div class="course">ส่งข้อสอบ ${new Set(rs.map(r=>r.room)).size} ห้อง<span class="cn">วิชา ${esc([...new Set(rs.map(r=>r.code))].join(', '))}</span></div>`;
       room = `<span class="mono">${esc([...new Set(rs.map(r=>r.room))].join(', '))}</span>`;
@@ -562,7 +568,7 @@ function renderTeamTable(){
     const s = inRoom.filter(x => x.kind==='staff').map(x=>x.name);
     r.es.forEach(e => { if (e.distHelp) s.push(e.distHelp); });
     const short = r.es.some(e => e.need > 0) && !t.length && !s.length;
-    const dist = slotPeople(r.date, r.time, 'dist').map(x=>x.name);
+    const dist = distFor(r.date, r.time, r.room);
     h += `<tr><td data-l="เวลา" class="num">${r.time}</td><td data-l="วิชา">${courseHtml(r.es)}</td><td data-l="ห้อง" class="mono">${esc(r.room)}</td><td data-l="นศ." class="num">${r.es.reduce((a,e)=>a+(e.n||0),0)}</td>
       <td data-l="ผู้คุม" class="ppl">${short?'<span class="warn" style="padding:1px 6px">ยังขาดคนคุม</span>':''}${t.map(x=>esc(x)).join(', ')}${t.length&&s.length?' – ':''}${namesHtml([...new Set(s)])}</td>
       <td data-l="จ่าย · เปิด" class="ppl">${namesHtml(dist)} · ${namesHtml(dayOpener(r.date).map(x=>x.name))}</td></tr>`;
