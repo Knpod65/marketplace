@@ -1,0 +1,612 @@
+<title>เวรคุมสอบของฉัน 1/2569</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@600;700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f4f6f8; --surface:#ffffff; --surface-2:#eef1f5; --line:#dde2e9; --line-soft:#e9edf2;
+  --ink:#141a22; --ink-2:#4a5463; --ink-3:#77818f;
+  --accent:#1f4fa8; --accent-soft:#e3ebfa;
+  --proctor:#2a78d6; --dist:#eb6834; --opener:#1baf7a;
+  --s1:#cde2fb; --s2:#9ec5f4; --s3:#6da7ec; --s4:#3987e5; --s5:#256abf; --s6:#184f95; --s7:#0d366b;
+  --p1:#86b6ef; --p2:#2a78d6; --p3:#104281;
+  --warn-bg:#fff4e0; --warn-ink:#8a5200; --warn-line:#f0c987;
+  --weekend:#f7efe6;
+  --empty:#f0f2f5;
+  --font-body:"IBM Plex Sans Thai",system-ui,"Noto Sans Thai",sans-serif;
+  --font-display:"Bai Jamjuree","IBM Plex Sans Thai",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0f1318; --surface:#171c23; --surface-2:#1f262f; --line:#2c3440; --line-soft:#232a33;
+    --ink:#eef2f7; --ink-2:#b4bdc9; --ink-3:#8791a0;
+    --accent:#8fb4ff; --accent-soft:#1c2a45;
+    --proctor:#3987e5; --dist:#d95926; --opener:#199e70;
+    --s1:#1a2a40; --s2:#1c3d66; --s3:#1c5cab; --s4:#2a78d6; --s5:#5598e7; --s6:#86b6ef; --s7:#cde2fb;
+    --p1:#184f95; --p2:#3987e5; --p3:#9ec5f4;
+    --warn-bg:#2e2310; --warn-ink:#f3c779; --warn-line:#5d4518;
+    --weekend:#221d18; --empty:#1b2129;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0f1318; --surface:#171c23; --surface-2:#1f262f; --line:#2c3440; --line-soft:#232a33;
+  --ink:#eef2f7; --ink-2:#b4bdc9; --ink-3:#8791a0;
+  --accent:#8fb4ff; --accent-soft:#1c2a45;
+  --proctor:#3987e5; --dist:#d95926; --opener:#199e70;
+  --s1:#1a2a40; --s2:#1c3d66; --s3:#1c5cab; --s4:#2a78d6; --s5:#5598e7; --s6:#86b6ef; --s7:#cde2fb;
+  --p1:#184f95; --p2:#3987e5; --p3:#9ec5f4;
+  --warn-bg:#2e2310; --warn-ink:#f3c779; --warn-line:#5d4518;
+  --weekend:#221d18; --empty:#1b2129;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.6;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:28px 56px;display:flex;flex-direction:column;gap:22px}
+@media (max-width:520px){.wrap{padding-inline:16px}}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.25}
+h1{font-size:clamp(26px,4vw,34px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:19px;font-weight:600}
+.eyebrow{font-size:12px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase;font-weight:600}
+.muted{color:var(--ink-2)}
+.small{font-size:13px}
+.mono{font-family:var(--font-mono);font-size:.92em}
+.num{font-variant-numeric:tabular-nums}
+
+/* header */
+.top{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:flex-end;justify-content:space-between}
+.top .title{display:flex;flex-direction:column;gap:6px}
+.draft{display:inline-flex;align-items:center;gap:6px;background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);border-radius:999px;padding:2px 10px;font-size:12.5px;font-weight:600;width:fit-content}
+
+/* picker */
+.picker{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;margin-block:-10px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.picker label{font-weight:600}
+.picker select{font:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:1.5px solid var(--accent);border-radius:10px;padding:9px 38px 9px 14px;min-width:0;width:min(420px,100%);appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink-2) 50%),linear-gradient(135deg,var(--ink-2) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 14px) 55%;background-size:6px 6px;background-repeat:no-repeat;cursor:pointer}
+.picker select:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btn-ghost{font:inherit;font-size:14px;background:none;border:1px solid var(--line);color:var(--ink-2);border-radius:10px;padding:8px 12px;cursor:pointer}
+.btn-ghost:hover{border-color:var(--ink-3);color:var(--ink)}
+
+/* who panel */
+.who{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,2fr);gap:18px;align-items:stretch}
+@media (max-width:860px){.who{grid-template-columns:1fr}}
+.who-id{display:flex;flex-direction:column;gap:8px;justify-content:center}
+.who-id .name{font-family:var(--font-display);font-size:clamp(22px,3vw,28px);font-weight:700;line-height:1.25}
+.tag{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:var(--ink-2);background:var(--surface-2);border-radius:6px;padding:2px 8px;width:fit-content}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.tile .k{font-size:13px;color:var(--ink-2)}
+.tile .v{font-family:var(--font-display);font-size:30px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.tile .v small{font-size:15px;font-weight:600;color:var(--ink-2);margin-left:4px}
+.tile .d{font-size:12.5px;color:var(--ink-3)}
+.tile .d b{color:var(--ink-2);font-weight:600}
+
+/* panels */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel-head{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;justify-content:space-between}
+.panel-head p{margin:0;font-size:13.5px;color:var(--ink-2);max-width:62ch}
+.grid-2{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px}
+@media (max-width:900px){.grid-2{grid-template-columns:1fr}}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--ink-2);align-items:center}
+.sw{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:5px}
+.sw.proctor{background:var(--proctor)}.sw.dist{background:var(--dist)}.sw.opener{background:var(--opener)}
+.sw.none{background:var(--empty);border:1px dashed var(--line)}
+.sw.unav{background:repeating-linear-gradient(135deg,var(--ink-3) 0 1.5px,transparent 1.5px 5px)}
+
+/* calendar strip */
+.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cal{display:grid;grid-template-columns:62px repeat(var(--days),minmax(44px,1fr));gap:3px;min-width:calc(62px + var(--days) * 47px)}
+.cal .ch{font-size:12px;text-align:center;color:var(--ink-2);line-height:1.25;padding-bottom:4px}
+.cal .ch b{display:block;font-family:var(--font-display);font-size:16px;color:var(--ink);font-weight:600}
+.cal .ch.we{color:var(--warn-ink)} .cal .ch.we b{color:var(--warn-ink)}
+.cal .rh{font-size:12px;color:var(--ink-2);display:flex;flex-direction:column;justify-content:center;line-height:1.2}
+.cal .rh b{color:var(--ink);font-weight:600;font-size:13px}
+.cell{height:48px;border-radius:6px;background:var(--empty);position:relative;display:flex;flex-direction:column;gap:2px;align-items:stretch;justify-content:center;padding:3px;font-size:11.5px;font-weight:600;color:#fff;cursor:default}
+.cell.noexam{background:transparent;border:1px dashed var(--line-soft)}
+.cell.exam{background:var(--surface-2)}
+.cell.we.noexam{background:var(--weekend);border-color:transparent}
+.cell .bar{flex:1;border-radius:3px;display:flex;align-items:center;justify-content:center;min-height:0;line-height:1}
+.cell .bar.proctor{background:var(--proctor)}.cell .bar.dist{background:var(--dist)}.cell .bar.opener{background:var(--opener)}
+.cell.heat{color:var(--ink);font-family:var(--font-display);font-size:15px;align-items:center}
+.cell.unav::after{content:"";position:absolute;inset:0;border-radius:6px;background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--ink-3) 55%,transparent) 0 1.5px,transparent 1.5px 6px);pointer-events:none}
+.cell[data-tip]{cursor:help}
+
+/* weekday heatmap */
+.hm{display:grid;grid-template-columns:52px repeat(7,minmax(34px,1fr));gap:3px}
+.hm .ch{font-size:12.5px;text-align:center;color:var(--ink-2)}
+.hm .ch.we{color:var(--warn-ink)}
+.hm .rh{font-size:12px;color:var(--ink-2);display:flex;align-items:center}
+.hcell{height:44px;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:600;font-size:16px;line-height:1;gap:3px;font-variant-numeric:tabular-nums}
+.hcell .plus{font-family:var(--font-body);font-size:10.5px;font-weight:600;padding:1px 5px;border-radius:999px;background:var(--surface);color:var(--ink)}
+.ramp{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-3)}
+.ramp i{display:inline-block;width:18px;height:10px;border-radius:2px}
+
+/* period mix */
+.mix{display:flex;flex-direction:column;gap:12px}
+.mixrow{display:grid;grid-template-columns:78px minmax(0,1fr);gap:10px;align-items:center;font-size:13px}
+.mixbar{display:flex;height:26px;border-radius:5px;overflow:hidden;gap:2px;background:var(--surface)}
+.mixbar span{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;min-width:0;white-space:nowrap;overflow:hidden}
+.mixbar .P1{background:var(--p1);color:#0d2a4f}.mixbar .P2{background:var(--p2)}.mixbar .P3{background:var(--p3)}
+.sw.P1{background:var(--p1)}.sw.P2{background:var(--p2)}.sw.P3{background:var(--p3)}
+.insight{font-size:14px;background:var(--accent-soft);border-radius:10px;padding:10px 12px;margin:0}
+
+/* table */
+table{border-collapse:collapse;width:100%;font-size:14px}
+th{font-size:12.5px;font-weight:600;color:var(--ink-2);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--line);white-space:nowrap;background:var(--surface);position:sticky;top:0}
+td{padding:9px 10px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+tr.dayhead td{background:var(--surface-2);font-family:var(--font-display);font-weight:600;font-size:14.5px;padding:7px 10px;border-bottom:none}
+tr.dayhead.we td{background:var(--weekend)}
+tr.me td{background:var(--accent-soft)}
+.role{display:inline-flex;align-items:center;gap:6px;font-weight:600;white-space:nowrap}
+.role::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--c)}
+.role.proctor,.role.own{--c:var(--proctor)}.role.dist{--c:var(--dist)}.role.opener{--c:var(--opener)}
+.course b{font-family:var(--font-mono);font-weight:500}
+.course .cn{display:block;color:var(--ink-2);font-size:13px}
+.ppl{color:var(--ink-2);font-size:13.5px}
+.ppl .mine{color:var(--ink);font-weight:600;background:var(--accent-soft);border-radius:4px;padding:0 4px}
+.warn{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);border-radius:10px;padding:10px 12px;font-size:14px}
+.empty-note{padding:18px;text-align:center;color:var(--ink-2);background:var(--surface-2);border-radius:10px}
+.table-wrap{overflow-x:auto;max-height:none}
+@media (max-width:640px){
+  table.cards thead{display:none}
+  table.cards,table.cards tbody,table.cards tr,table.cards td{display:block;width:100%}
+  table.cards tr:not(.dayhead){padding:10px 2px;border-bottom:1px solid var(--line-soft)}
+  table.cards td{border:none;padding:2px 8px}
+  table.cards td[data-l]::before{content:attr(data-l) " ";color:var(--ink-3);font-size:12px}
+}
+
+/* load chart */
+.load{display:flex;flex-direction:column;gap:3px}
+.lrow{display:grid;grid-template-columns:minmax(110px,190px) minmax(0,1fr) 28px;gap:10px;align-items:center;font-size:13px;border-radius:6px;padding:1px 4px;cursor:pointer;background:none;border:0;font:inherit;color:inherit;text-align:left;width:100%}
+.lrow:hover{background:var(--surface-2)}
+.lrow .ln{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink-2)}
+.lrow .lb{display:flex;gap:2px;height:16px;position:relative}
+.lrow .lb span{border-radius:0;height:100%}
+.lrow .lb span:first-child{border-radius:3px 0 0 3px}
+.lrow .lb span:last-child{border-radius:0 4px 4px 0}
+.lrow .lb span:only-child{border-radius:3px 4px 4px 3px}
+.lrow .lv{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.load.focus .lrow:not(.sel) .lb{opacity:.35}
+.lrow.sel{background:var(--accent-soft)}
+.lrow.sel .ln,.lrow.sel .lv{color:var(--ink);font-weight:600}
+.lb .proctor{background:var(--proctor)}.lb .dist{background:var(--dist)}.lb .opener{background:var(--opener)}
+.axis{display:grid;grid-template-columns:minmax(110px,190px) minmax(0,1fr) 28px;gap:10px;font-size:11.5px;color:var(--ink-3);padding:0 4px}
+.axis .ticks{position:relative;height:16px}
+.axis .ticks span{position:absolute;transform:translateX(-50%)}
+.gridlines{position:absolute;inset:0;pointer-events:none}
+
+#tip{position:fixed;z-index:20;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;line-height:1.45;padding:8px 10px;border-radius:8px;max-width:280px;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+footer{font-size:13px;color:var(--ink-3);display:flex;flex-direction:column;gap:4px}
+@media (prefers-reduced-motion:no-preference){.lrow .lb span{transition:opacity .2s}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="title">
+      <span class="eyebrow" id="roundLabel">รอบสอบ</span>
+      <h1>เวรคุมสอบปลายภาค 1/2569</h1>
+      <span class="draft" title="ข้อมูลจากผลพรีวิวของระบบจัดเวร ยังไม่มีการยืนยันตาราง">● ร่าง — ยังไม่ใช่ตารางที่ประกาศ</span>
+    </div>
+    <p class="muted small" style="margin:0;max-width:46ch">เลือกชื่อตัวเองเพื่อดูว่าได้เวรวันไหน ช่วงไหน อยู่ห้องไหนกับใคร และเวรของเราสะสมตกช่วงไหนบ่อยเมื่อเทียบกับทั้งทีม</p>
+  </header>
+
+  <div class="picker">
+    <label for="who">ฉันคือ</label>
+    <select id="who"></select>
+    <button class="btn-ghost" id="showAll" type="button">ดูภาพรวมทั้งทีม</button>
+  </div>
+
+  <section class="who" id="whoPanel"></section>
+
+  <div id="warnings"></div>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2 id="calTitle">ปฏิทินเวรรอบนี้</h2>
+      <div class="legend" id="calLegend"></div>
+    </div>
+    <div class="scroll-x"><div class="cal" id="cal"></div></div>
+  </section>
+
+  <div class="grid-2" id="distRow">
+    <section class="panel">
+      <div class="panel-head">
+        <h2 id="hmTitle">เวรสะสมตามวันในสัปดาห์</h2>
+        <p id="hmSub"></p>
+      </div>
+      <div class="scroll-x"><div class="hm" id="hm"></div></div>
+      <div class="ramp" id="ramp"></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head">
+        <h2>สัดส่วน เช้า · บ่าย · เย็น</h2>
+        <p>เทียบช่วงเวลาที่เราได้รอบนี้กับงานทั้งรอบ ถ้าสัดส่วนใกล้กัน แปลว่าไม่ได้กระจุกช่วงใดช่วงหนึ่ง</p>
+      </div>
+      <div class="mix" id="mix"></div>
+    </section>
+  </div>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2 id="tblTitle">ตารางคุมสอบของฉัน</h2>
+      <div class="legend"><span><i class="sw proctor"></i>คุมสอบ</span><span><i class="sw dist"></i>จ่ายข้อสอบ</span><span><i class="sw opener"></i>เปิดห้อง</span></div>
+    </div>
+    <div class="table-wrap" id="tbl"></div>
+  </section>
+
+  <section class="panel" id="loadPanel">
+    <div class="panel-head">
+      <h2>ภาระเวรของพนักงานทุกคนรอบนี้</h2>
+      <p>นับคุมสอบ จ่ายข้อสอบ และเปิดห้อง (เปิดห้องนับวันละ 1 เวร) กดที่ชื่อเพื่อดูตารางของคนนั้น</p>
+    </div>
+    <div class="legend"><span><i class="sw proctor"></i>คุมสอบ</span><span><i class="sw dist"></i>จ่ายข้อสอบ</span><span><i class="sw opener"></i>เปิดห้อง</span></div>
+    <div class="load" id="load"></div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+<div id="tip" hidden></div>
+
+<script>
+const DATA = {"round":"1/2569-FINAL","generated":"2026-09-25","summary":{"rooms":95,"slots":22,"duties":229,"cap":5},"days":["2026-10-19","2026-10-20","2026-10-21","2026-10-22","2026-10-23","2026-10-24","2026-10-25","2026-10-26","2026-10-27","2026-10-28","2026-10-29","2026-10-30","2026-10-31","2026-11-01","2026-11-02"],"slots":[{"date":"2026-10-19","time":"13:00-16:00","p":"P2"},{"date":"2026-10-20","time":"12:00-15:00","p":"P2"},{"date":"2026-10-20","time":"15:30-18:30","p":"P3"},{"date":"2026-10-21","time":"12:00-15:00","p":"P2"},{"date":"2026-10-22","time":"12:00-15:00","p":"P2"},{"date":"2026-10-22","time":"13:00-16:00","p":"P2"},{"date":"2026-10-24","time":"12:00-13:30","p":"P2"},{"date":"2026-10-24","time":"15:30-18:30","p":"P3"},{"date":"2026-10-25","time":"08:00-11:00","p":"P1"},{"date":"2026-10-25","time":"12:00-15:00","p":"P2"},{"date":"2026-10-25","time":"15:30-18:30","p":"P3"},{"date":"2026-10-26","time":"08:00-11:00","p":"P1"},{"date":"2026-10-26","time":"15:30-18:30","p":"P3"},{"date":"2026-10-27","time":"08:00-11:00","p":"P1"},{"date":"2026-10-27","time":"12:00-15:00","p":"P2"},{"date":"2026-10-28","time":"12:00-15:00","p":"P2"},{"date":"2026-10-28","time":"15:30-18:30","p":"P3"},{"date":"2026-10-29","time":"12:00-15:00","p":"P2"},{"date":"2026-10-30","time":"12:00-15:00","p":"P2"},{"date":"2026-10-31","time":"15:30-18:30","p":"P3"},{"date":"2026-11-01","time":"15:30-18:30","p":"P3"},{"date":"2026-11-02","time":"08:00-11:00","p":"P1"}],"stackCols":["จ.-P1","จ.-P2","จ.-P3","อ.-P1","อ.-P2","อ.-P3","พ.-P1","พ.-P2","พ.-P3","พฤ.-P1","พฤ.-P2","พฤ.-P3","ศ.-P1","ศ.-P2","ศ.-P3","ส.-P1","ส.-P2","ส.-P3","อา.-P1","อา.-P2","อา.-P3"],"people":[{"id":"p65","name":"นางธีราภัณฑ์ ยะโสภา","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,1,0,0,1,0],"after":[1,0,1,1,1,0,0,1,0,0,2,0,0,0,1,0,1,1,0,1,1]},{"id":"p16","name":"นางสาวกชกานต์ ทองรัตน์","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,1,0,0,0,0,0,0,0,1,0,0,2,0,0,0,2,0,0,1,0],"after":[0,1,0,0,1,0,0,0,1,1,1,0,2,0,0,0,2,0,1,1,0]},{"id":"p12","name":"นางสาวกนกวรรณ อุ่นนันกาศ","kind":"staff","canProctor":false,"inDistPool":false,"note":"หัวหน้างานบริหารงานบุคคล — ไม่ทำเวรสอบเลย","before":[0,0,0,0,0,0,1,0,0,0,2,0,0,0,0,0,2,0,0,1,0],"after":[0,0,0,0,0,0,1,0,0,0,2,0,0,0,0,0,2,0,0,1,0]},{"id":"p66","name":"นางสาวฐิตารีย์ บูรณะธนะสิทธิ์","kind":"staff","canProctor":true,"inDistPool":false,"before":[1,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,2,0,0,0,0],"after":[1,0,1,0,1,0,0,1,0,0,2,0,0,1,0,0,2,1,0,0,0]},{"id":"p24","name":"นางสาวณภัคสุรางค์ ธนาณิศสุรางค์","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,0,0,0,0,0,0,0,0,1,2,1,0,0,0,0,1,0,0,0,0],"after":[1,0,0,0,1,0,0,1,0,1,2,1,0,0,0,0,1,1,0,0,1]},{"id":"p75","name":"นางสาวณัฏฐพัชร ศรีรินทร์","kind":"staff","canProctor":true,"inDistPool":false,"before":[1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,2,0,0,1,0],"after":[1,0,1,0,2,0,0,0,1,0,2,0,0,0,0,0,2,0,1,1,0]},{"id":"p27","name":"นางสาวณัฐธยาน์ ศิริปัญญา","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,0,0,0,0,0,0,3,0,0,2,0,0,0,0,0,1,0,0,1,0],"after":[1,0,0,0,1,0,0,3,0,0,2,0,0,0,0,0,1,1,0,1,1]},{"id":"p25","name":"นางสาวนภาภรณ์ ปัญญาราษฎร์ (หัวหน้างาน)","kind":"staff","canProctor":false,"inDistPool":false,"note":"หัวหน้างานหลักสูตรฯ — ไม่ทำเวรสอบเลย"},{"id":"p36","name":"นางสาวปวีณา ธูปทอง (เลขานุการคณะฯ)","kind":"staff","canProctor":false,"inDistPool":false,"note":"เลขานุการคณะฯ — ไม่ทำเวรสอบเลย"},{"id":"p45","name":"นางสาวพรชนก เสนะสุทธิพันธุ์","kind":"staff","canProctor":true,"inDistPool":true,"before":[0,0,2,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,0,1,0],"after":[1,0,2,0,1,0,0,1,0,1,1,0,1,0,0,0,2,0,0,1,1]},{"id":"p42","name":"นางสาวพิชชารีย์ ลิ่วเกียรติ","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,0,1,0,1,0,0,0,0,0,1,0,0,1,0,0,1,0,2,0,0],"after":[1,0,1,0,2,0,0,0,0,0,2,0,0,1,0,0,1,0,2,0,1]},{"id":"p41","name":"นางสาวพีชชา กาบปินะ","kind":"staff","canProctor":true,"inDistPool":true,"before":[0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,2,1,0,0,1,0],"after":[0,1,0,0,2,0,0,0,1,0,2,0,0,1,0,2,1,0,1,1,1]},{"id":"p5","name":"นางสาวภัทรลภา อุพพา","kind":"staff","canProctor":true,"inDistPool":true,"before":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"after":[1,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0]},{"id":"p37","name":"นางสาวภูษณิศา สายคำ","kind":"staff","canProctor":true,"inDistPool":true,"before":[0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,1,0,0],"after":[0,1,2,0,1,0,1,0,0,0,1,1,0,0,0,0,1,1,1,0,0]},{"id":"p22","name":"นางสาวมาธวี เมืองศรี","kind":"staff","canProctor":true,"inDistPool":true,"before":[0,1,2,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,2,0,0],"after":[0,1,2,1,0,0,0,1,0,0,2,0,0,0,0,0,1,0,2,1,0]},{"id":"p48","name":"นางสาวรภัทรา หิรัญรังสิต (หัวหน้างาน)","kind":"staff","canProctor":false,"inDistPool":false,"note":"หัวหน้างานวิจัย — ไม่ทำเวรสอบเลย"},{"id":"p49","name":"นางสาวรัชนีวรรณ ปัญญาเทพ","kind":"staff","canProctor":true,"inDistPool":false,"before":[1,0,1,0,0,0,0,1,0,0,0,0,1,0,1,0,1,0,0,0,0],"after":[1,0,1,0,1,0,0,1,0,0,1,0,1,0,1,0,1,1,0,0,1]},{"id":"p51","name":"นางสาวรุ่งทิวา ปาลี","kind":"staff","canProctor":true,"inDistPool":true,"before":[2,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,2,0,0,1,0],"after":[2,0,0,0,1,0,0,1,1,0,1,0,0,0,1,0,2,0,1,1,0]},{"id":"p19","name":"นางสาวลัดดาภรณ์ ยาบุญนะ","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,0,1,0,0,0,0,0,0,0,2,1,0,0,0,0,1,0,2,0,0],"after":[1,0,1,0,1,0,0,0,0,0,2,1,0,0,0,0,1,0,2,1,0]},{"id":"p73","name":"นางสาววริชา สร้อยสวิง","kind":"staff","canProctor":true,"inDistPool":false,"before":[1,2,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,1,0],"after":[1,2,0,0,1,0,0,1,0,0,2,0,0,0,0,0,1,1,0,1,1]},{"id":"p74","name":"นางสาววรินทร สมฟอง","kind":"staff","canProctor":true,"inDistPool":true,"before":[0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,1,0],"after":[0,0,1,1,1,0,0,2,0,1,1,0,0,0,0,0,1,1,1,1,0]},{"id":"p52","name":"นางสาวสกาวกวิน กาญจนเสมา","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,0,1,0,0,0,0,0,0,1,2,0,0,0,0,0,1,0,1,1,0],"after":[0,0,1,0,1,0,0,0,0,1,2,0,0,0,0,0,1,1,2,1,0]},{"id":"p57","name":"นางสาวสิริมา ชินสมุทร","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,1,0,0,0,0,0,0,0,0,2,0,1,0,0,0,1,0,1,1,0],"after":[0,1,0,0,1,0,0,0,1,0,2,0,1,0,0,0,1,0,2,1,0]},{"id":"p60","name":"นางสาวสุภีฤทัย บัวแก้ว","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,1,0,0,1,0,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0],"after":[1,1,0,0,2,0,0,1,0,1,1,1,1,0,0,0,1,1,0,0,1]},{"id":"p2","name":"นางสาวอารยา ฟ้ารุ่งสาง","kind":"staff","canProctor":true,"inDistPool":false,"before":[1,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,2,0,0],"after":[1,0,1,0,1,0,0,1,0,0,1,0,1,0,0,0,0,1,2,0,1]},{"id":"p10","name":"นางสาวอิสรีย์ พงศ์ทิวาพรรณ","kind":"staff","canProctor":true,"inDistPool":false,"before":[1,1,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1,0,0,1,0],"after":[1,1,1,0,1,0,0,1,0,0,2,0,0,0,0,0,1,1,0,1,0]},{"id":"p59","name":"นางสาวโศศิษฐา ศรีสุข","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,0,1,0,0,0,0,1,0,1,1,0,1,0,0,0,2,0,0,1,0],"after":[0,0,2,0,1,0,0,1,0,1,1,0,1,0,0,0,2,0,0,1,0]},{"id":"p14","name":"นางสิรินภัทร สมพงษ์ (หัวหน้างาน)","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"after":[0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0]},{"id":"p8","name":"นายชนะชล ทรฤทธิ์","kind":"staff","canProctor":false,"inDistPool":false,"before":[0,0,1,0,1,0,1,0,0,0,0,1,1,0,0,0,1,0,0,0,0],"after":[1,1,1,0,1,0,1,2,0,0,0,1,1,1,0,0,2,0,1,0,0]},{"id":"p7","name":"นายชัยตรี ศรีใจ","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,2,0,0,0,0],"after":[1,1,0,0,1,0,0,1,0,0,2,1,1,0,0,0,2,1,0,0,1]},{"id":"p62","name":"นายธนภัทร ปัญญาวุฒิ","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,1,0,0,0,0,0,0,0,0,2,0,2,0,0,0,1,0,0,1,0],"after":[1,1,0,0,1,0,0,0,1,0,2,0,2,0,0,0,1,0,0,1,0]},{"id":"p0","name":"นายวชิรวิทย์ สิทธิอาษา","kind":"staff","canProctor":true,"inDistPool":true,"before":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"after":[1,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,0]},{"id":"p70","name":"นายวชิราวุธ ยาเก๋","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,0,1,0,0,0,0,1,0,0,0,0,1,1,1,0,2,0,0,0,0],"after":[0,0,1,0,1,0,0,1,0,0,1,0,1,1,1,0,2,1,1,0,0]},{"id":"p69","name":"นายวีรภัทร์ หาญสุข","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,1,0,1,0,0,0,0,0,1,1,1,0,0,0,0,1,0,0,1,0],"after":[0,1,1,1,1,0,0,1,0,1,1,1,0,0,0,0,1,1,0,1,0]},{"id":"p53","name":"นายสัพพัญญู วงศ์ชัย","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,1,0,0,1,0,0,0,0,0,0,0,2,0,0,0,1,0,0,1,0],"after":[1,1,0,0,2,0,0,1,0,0,1,0,2,0,0,0,1,1,0,1,1]},{"id":"p54","name":"นายสารัตถ์ ขัตติยะ","kind":"staff","canProctor":true,"inDistPool":false,"before":[0,0,1,0,0,0,0,0,0,0,2,0,0,0,0,0,3,0,0,0,0],"after":[0,0,1,0,1,0,0,0,1,0,2,0,0,0,0,0,3,0,1,0,0]},{"id":"p4","name":"นายอติกานต์ แสงวิลัย","kind":"staff","canProctor":true,"inDistPool":true,"before":[0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,1,0],"after":[1,0,1,0,1,1,0,1,0,1,1,0,0,0,0,0,1,0,1,1,0]},{"id":"p17","name":"นายไกรพล ปัญญาสุ (หัวหน้างาน)","kind":"staff","canProctor":false,"inDistPool":false,"note":"หัวหน้างานยุทธศาสตร์ฯ — ไม่ทำเวรสอบเลย"},{"id":"p11","name":"ผศ.ดร.กมลพร หิรัญรัศ","kind":"teacher","before":[0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0],"after":[0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0]},{"id":"p13","name":"ผศ.ดร.กัญญณัฏฐา อิทธินิติวุฒิ","kind":"teacher","before":[1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0],"after":[1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0]},{"id":"p30","name":"ผศ.ดร.ณัฐกร วิทิตานนท์","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0],"after":[0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0]},{"id":"p26","name":"ผศ.ดร.ณัฐพล ตันตระกูลทรัพย์","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1,0,0],"after":[0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1,0,0]},{"id":"p43","name":"ผศ.ดร.พจนา พิชิตปัจจา","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0],"after":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0]},{"id":"p38","name":"ผศ.ดร.พิชญ์อาภา พิศุทธ์เศรณี","kind":"teacher","before":[1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0],"after":[1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0]},{"id":"p33","name":"ผศ.ดร.ภาณุวัฒน์ พันธุ์ประเสริฐ","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0],"after":[0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0]},{"id":"p20","name":"ผศ.ดร.มาลินี คุ้มสุภา","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0],"after":[0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0]},{"id":"p50","name":"ผศ.ดร.รวีวรรณ แพทย์สมาน","kind":"teacher","before":[0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],"after":[0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"id":"p77","name":"ผศ.ดร.วรพงศ์ ตระการศิรินนท์","kind":"teacher","before":[0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0],"after":[0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0]},{"id":"p71","name":"ผศ.ดร.วรรณภา ลีระศิริ","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0],"after":[0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0]},{"id":"p72","name":"ผศ.ดร.วันพัฒน์ ยังมีวิทยา","kind":"teacher","before":[0,0,0,0,1,0,0,1,0,0,1,0,2,0,0,0,0,0,0,0,0],"after":[0,0,0,0,1,0,0,1,0,0,1,0,2,0,0,0,0,0,0,0,0]},{"id":"p61","name":"ผศ.ดร.สุพิชฌาย์ ปัญญา","kind":"teacher","before":[0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,1,0,0,0,0],"after":[0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,1,0,0,0,0]},{"id":"p31","name":"ผศ.ดร.อรชร แซ่จาง","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0],"after":[0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0]},{"id":"p1","name":"ผศ.ดร.อัจฉรา บรรจงประเสริฐ","kind":"teacher","before":[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,1,0],"after":[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,1,0]},{"id":"p3","name":"ผศ.ดร.อัจฉรียา สายศิลป์","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0],"after":[0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0]},{"id":"p68","name":"ผศ.ดร.อุดมโชค อาษาวิมลกิจ","kind":"teacher"},{"id":"p6","name":"ผศ.ดร.เบญจมาศ นิลสุวรรณ์","kind":"teacher","before":[1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],"after":[1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0]},{"id":"p18","name":"ผศ.ดร.ไกรวุฒิ ใจคำปัน","kind":"teacher","before":[0,1,1,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0],"after":[0,1,1,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0]},{"id":"p47","name":"ผศ.ราม โชติคุต","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,1,0],"after":[0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,1,0]},{"id":"p15","name":"รศ.ดร.LEE KIAN CHENG","kind":"teacher","before":[0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],"after":[0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0]},{"id":"p9","name":"รศ.ดร.ชนินทร เพ็ญสูตร","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],"after":[0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0]},{"id":"p67","name":"รศ.ดร.ฐิติวุฒิ บุญยวงศ์วิวัชร","kind":"teacher","before":[0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],"after":[0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"id":"p63","name":"รศ.ดร.ธัญณ์ณภัทร์ เจริญพานิช","kind":"teacher"},{"id":"p64","name":"รศ.ดร.ธันยวัฒน์ รัตนสัค","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1,0,0,0,0],"after":[0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1,0,0,0,0]},{"id":"p35","name":"รศ.ดร.ปฐมาวดี จงรักษ์","kind":"teacher","before":[0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1,0,0],"after":[0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1,0,0]},{"id":"p32","name":"รศ.ดร.พนม กุณาวงค์","kind":"teacher","before":[0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,0,0,0,0],"after":[0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,0,0,0,0]},{"id":"p34","name":"รศ.ดร.พฤดี หงุ่ยตระกูล","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0],"after":[0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0]},{"id":"p76","name":"รศ.ดร.วิชชุดา สร้างเอี่ยม","kind":"teacher","before":[0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"after":[0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"id":"p58","name":"รศ.ศิริพงษ์ ลดาวัลย์ ณ อยุธยา","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0],"after":[0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0]},{"id":"p29","name":"อ.ณิศนีญ์ ชัยประกอบวิริยะ","kind":"teacher","before":[0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0],"after":[0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0]},{"id":"p23","name":"อ.ดร.Matthew Robson","kind":"teacher","before":[1,0,0,0,0,0,0,0,0,1,0,0,0,2,0,0,1,0,0,0,0],"after":[1,0,0,0,0,0,0,0,0,1,0,0,0,2,0,0,1,0,0,0,0]},{"id":"p28","name":"อ.ดร.นัทธพงศ์ ปกีรณัม","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0],"after":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0]},{"id":"p46","name":"อ.ดร.ปราน จินตะเวช","kind":"teacher","before":[0,0,0,0,0,0,0,1,0,0,2,0,0,1,0,0,1,0,0,1,0],"after":[0,0,0,0,0,0,0,1,0,0,2,0,0,1,0,0,1,0,0,1,0]},{"id":"p44","name":"อ.ดร.พรชนก เรืองวีรยุทธ","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0],"after":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0]},{"id":"p40","name":"อ.ดร.พินสุดา วงศ์อนันต์","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0],"after":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0]},{"id":"p21","name":"อ.ดร.มานิตา หนูสวัสดิ์","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0],"after":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0]},{"id":"p55","name":"อ.ดร.ศศิพัชร์ ชัยสิริบดินทร์","kind":"teacher","before":[0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],"after":[0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"id":"p56","name":"อ.ดร.ศิรดา เขมานิฏฐาไท","kind":"teacher","before":[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],"after":[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0]},{"id":"p39","name":"อ.พิกุล อิทธิหิรัญวงศ์","kind":"teacher","before":[0,0,0,0,0,0,0,0,0,0,3,0,0,1,0,0,0,0,0,0,0],"after":[0,0,0,0,0,0,0,0,0,0,3,0,0,1,0,0,0,0,0,0,0]}],"duties":[{"pid":"p37","date":"2026-10-19","time":"13:00-16:00","p":"P2","role":"dist","room":null},{"pid":"p63","date":"2026-10-19","time":"13:00-16:00","p":"P2","role":"own","room":"PSB1303"},{"pid":"p8","date":"2026-10-19","time":"13:00-16:00","p":"P2","role":"opener","room":null},{"pid":"p9","date":"2026-10-20","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1310"},{"pid":"p65","date":"2026-10-20","time":"12:00-15:00","p":"P2","role":"opener","room":null},{"pid":"p4","date":"2026-10-20","time":"15:30-18:30","p":"P3","role":"dist","room":null},{"pid":"p9","date":"2026-10-20","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1101"},{"pid":"p2","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1101"},{"pid":"p24","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1101"},{"pid":"p14","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"proctor","room":"AUD50"},{"pid":"p0","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"proctor","room":"AUD50"},{"pid":"p5","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1201"},{"pid":"p7","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1310"},{"pid":"p53","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1307"},{"pid":"p22","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1207"},{"pid":"p45","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"dist","room":null},{"pid":"p38","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1101"},{"pid":"p46","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"own","room":"AUD50"},{"pid":"p35","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1201"},{"pid":"p55","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1310"},{"pid":"p18","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1307"},{"pid":"p20","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1207"},{"pid":"p8","date":"2026-10-21","time":"12:00-15:00","p":"P2","role":"opener","room":null},{"pid":"p49","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1101"},{"pid":"p74","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1101"},{"pid":"p37","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1205"},{"pid":"p70","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1205"},{"pid":"p51","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1208"},{"pid":"p16","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1208"},{"pid":"p66","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"proctor","room":"AUD50"},{"pid":"p42","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1201"},{"pid":"p2","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1204"},{"pid":"p75","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1207"},{"pid":"p41","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1311"},{"pid":"p4","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"dist","room":null},{"pid":"p72","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1101"},{"pid":"p44","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"own","room":"AUD50"},{"pid":"p38","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1201"},{"pid":"p58","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1204"},{"pid":"p61","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1207"},{"pid":"p18","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1311"},{"pid":"p20","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1303"},{"pid":"p65","date":"2026-10-22","time":"12:00-15:00","p":"P2","role":"opener","room":null},{"pid":"p22","date":"2026-10-22","time":"13:00-16:00","p":"P2","role":"dist","room":null},{"pid":"p63","date":"2026-10-22","time":"13:00-16:00","p":"P2","role":"own","room":"PSB1306"},{"pid":"p14","date":"2026-10-24","time":"12:00-13:30","p":"P2","role":"proctor","room":"PSB1101"},{"pid":"p45","date":"2026-10-24","time":"12:00-13:30","p":"P2","role":"dist","room":null},{"pid":"p44","date":"2026-10-24","time":"12:00-13:30","p":"P2","role":"own","room":"PSB1101"},{"pid":"p8","date":"2026-10-24","time":"12:00-13:30","p":"P2","role":"opener","room":null},{"pid":"p0","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"proctor","room":"AUD50"},{"pid":"p5","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"proctor","room":"AUD50"},{"pid":"p24","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"proctor","room":"AUD50"},{"pid":"p53","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1101"},{"pid":"p10","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1101"},{"pid":"p66","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1201"},{"pid":"p73","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1201"},{"pid":"p27","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1204"},{"pid":"p49","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1204"},{"pid":"p7","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1205"},{"pid":"p60","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1205"},{"pid":"p69","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1310"},{"pid":"p37","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"dist","room":null},{"pid":"p30","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"own","room":"AUD50"},{"pid":"p47","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1101"},{"pid":"p29","date":"2026-10-24","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1310"},{"pid":"p70","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1101"},{"pid":"p54","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"proctor","room":"AUD50"},{"pid":"p4","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1307"},{"pid":"p74","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1204"},{"pid":"p75","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1205"},{"pid":"p51","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1207"},{"pid":"p16","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1208"},{"pid":"p14","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1311"},{"pid":"p57","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1312"},{"pid":"p52","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1206"},{"pid":"p41","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"dist","room":null},{"pid":"p33","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1101"},{"pid":"p32","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"own","room":"AUD50"},{"pid":"p64","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1307"},{"pid":"p6","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1204"},{"pid":"p23","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1205"},{"pid":"p77","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1207"},{"pid":"p3","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1208"},{"pid":"p46","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1311"},{"pid":"p11","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1312"},{"pid":"p67","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1206"},{"pid":"p8","date":"2026-10-25","time":"08:00-11:00","p":"P1","role":"opener","room":null},{"pid":"p19","date":"2026-10-25","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1207"},{"pid":"p22","date":"2026-10-25","time":"12:00-15:00","p":"P2","role":"dist","room":null},{"pid":"p33","date":"2026-10-25","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1207"},{"pid":"p26","date":"2026-10-25","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1303"},{"pid":"p2","date":"2026-10-25","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1205"},{"pid":"p42","date":"2026-10-25","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1204"},{"pid":"p45","date":"2026-10-25","time":"15:30-18:30","p":"P3","role":"dist","room":null},{"pid":"p43","date":"2026-10-25","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1205"},{"pid":"p50","date":"2026-10-25","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1204"},{"pid":"p24","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1101"},{"pid":"p5","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1101"},{"pid":"p27","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"proctor","room":"AUD50"},{"pid":"p7","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"proctor","room":"AUD50"},{"pid":"p53","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1204"},{"pid":"p62","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1307"},{"pid":"p60","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1207"},{"pid":"p0","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"dist","room":null},{"pid":"p71","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1101"},{"pid":"p26","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"own","room":"AUD50"},{"pid":"p6","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1204"},{"pid":"p77","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1307"},{"pid":"p13","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1207"},{"pid":"p8","date":"2026-10-26","time":"08:00-11:00","p":"P1","role":"opener","room":null},{"pid":"p66","date":"2026-10-26","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1101"},{"pid":"p10","date":"2026-10-26","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1101"},{"pid":"p74","date":"2026-10-26","time":"15:30-18:30","p":"P3","role":"proctor","room":"AUD50"},{"pid":"p69","date":"2026-10-26","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1204"},{"pid":"p14","date":"2026-10-26","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1207"},{"pid":"p59","date":"2026-10-26","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1208"},{"pid":"p37","date":"2026-10-26","time":"15:30-18:30","p":"P3","role":"dist","room":null},{"pid":"p20","date":"2026-10-26","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1101"},{"pid":"p47","date":"2026-10-26","time":"15:30-18:30","p":"P3","role":"own","room":"AUD50"},{"pid":"p56","date":"2026-10-26","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1204"},{"pid":"p3","date":"2026-10-26","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1207"},{"pid":"p23","date":"2026-10-26","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1208"},{"pid":"p22","date":"2026-10-27","time":"08:00-11:00","p":"P1","role":"dist","room":null},{"pid":"p28","date":"2026-10-27","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1307"},{"pid":"p65","date":"2026-10-27","time":"08:00-11:00","p":"P1","role":"opener","room":null},{"pid":"p54","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"ECON-B"},{"pid":"p52","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"ECON-B"},{"pid":"p49","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"ECON-A"},{"pid":"p2","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1101"},{"pid":"p57","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1101"},{"pid":"p73","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"AUD50"},{"pid":"p16","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"AUD50"},{"pid":"p70","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1206"},{"pid":"p51","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1206"},{"pid":"p19","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1309"},{"pid":"p45","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1309"},{"pid":"p0","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1307"},{"pid":"p5","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1307"},{"pid":"p10","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1204"},{"pid":"p24","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1204"},{"pid":"p37","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1208"},{"pid":"p42","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1208"},{"pid":"p74","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1311"},{"pid":"p69","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1311"},{"pid":"p7","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1312"},{"pid":"p14","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1312"},{"pid":"p75","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1205"},{"pid":"p62","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1308"},{"pid":"p27","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1310"},{"pid":"p66","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1201"},{"pid":"p59","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1302"},{"pid":"p60","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1303"},{"pid":"p53","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1207"},{"pid":"p41","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"dist","room":null},{"pid":"p4","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"dist","room":null},{"pid":"p15","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"own","room":"ECON-B"},{"pid":"p23","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"own","room":"ECON-A"},{"pid":"p28","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1101"},{"pid":"p1","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"own","room":"AUD50"},{"pid":"p13","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1205"},{"pid":"p46","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1308"},{"pid":"p3","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1310"},{"pid":"p38","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1201"},{"pid":"p56","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1302"},{"pid":"p34","date":"2026-10-27","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1207"},{"pid":"p10","date":"2026-10-28","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1204"},{"pid":"p60","date":"2026-10-28","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1307"},{"pid":"p69","date":"2026-10-28","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1207"},{"pid":"p74","date":"2026-10-28","time":"12:00-15:00","p":"P2","role":"dist","room":null},{"pid":"p11","date":"2026-10-28","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1204"},{"pid":"p6","date":"2026-10-28","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1307"},{"pid":"p32","date":"2026-10-28","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1207"},{"pid":"p67","date":"2026-10-28","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1208"},{"pid":"p8","date":"2026-10-28","time":"12:00-15:00","p":"P2","role":"opener","room":null},{"pid":"p16","date":"2026-10-28","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1101"},{"pid":"p41","date":"2026-10-28","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1101"},{"pid":"p54","date":"2026-10-28","time":"15:30-18:30","p":"P3","role":"proctor","room":"AUD50"},{"pid":"p57","date":"2026-10-28","time":"15:30-18:30","p":"P3","role":"proctor","room":"AUD50"},{"pid":"p62","date":"2026-10-28","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1201"},{"pid":"p75","date":"2026-10-28","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1204"},{"pid":"p51","date":"2026-10-28","time":"15:30-18:30","p":"P3","role":"dist","room":null},{"pid":"p31","date":"2026-10-28","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1101"},{"pid":"p39","date":"2026-10-28","time":"15:30-18:30","p":"P3","role":"own","room":"AUD50"},{"pid":"p50","date":"2026-10-28","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1201"},{"pid":"p58","date":"2026-10-28","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1204"},{"pid":"p53","date":"2026-10-29","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1101"},{"pid":"p0","date":"2026-10-29","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1101"},{"pid":"p73","date":"2026-10-29","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1204"},{"pid":"p7","date":"2026-10-29","time":"12:00-15:00","p":"P2","role":"proctor","room":"PSB1205"},{"pid":"p5","date":"2026-10-29","time":"12:00-15:00","p":"P2","role":"dist","room":null},{"pid":"p30","date":"2026-10-29","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1101"},{"pid":"p76","date":"2026-10-29","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1204"},{"pid":"p68","date":"2026-10-29","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1205"},{"pid":"p65","date":"2026-10-29","time":"12:00-15:00","p":"P2","role":"opener","room":null},{"pid":"p41","date":"2026-10-30","time":"12:00-15:00","p":"P2","role":"dist","room":null},{"pid":"p28","date":"2026-10-30","time":"12:00-15:00","p":"P2","role":"own","room":"PSB1207"},{"pid":"p8","date":"2026-10-30","time":"12:00-15:00","p":"P2","role":"opener","room":null},{"pid":"p70","date":"2026-10-31","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1201"},{"pid":"p2","date":"2026-10-31","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1205"},{"pid":"p52","date":"2026-10-31","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1307"},{"pid":"p74","date":"2026-10-31","time":"15:30-18:30","p":"P3","role":"dist","room":null},{"pid":"p1","date":"2026-10-31","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1201"},{"pid":"p72","date":"2026-10-31","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1205"},{"pid":"p21","date":"2026-10-31","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1307"},{"pid":"p65","date":"2026-10-31","time":"15:30-18:30","p":"P3","role":"opener","room":null},{"pid":"p24","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1101"},{"pid":"p7","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"proctor","room":"AUD50"},{"pid":"p53","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1201"},{"pid":"p60","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1310"},{"pid":"p49","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1302"},{"pid":"p73","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1205"},{"pid":"p27","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"proctor","room":"PSB1204"},{"pid":"p41","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"dist","room":null},{"pid":"p15","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1101"},{"pid":"p33","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"own","room":"AUD50"},{"pid":"p56","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1201"},{"pid":"p64","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1310"},{"pid":"p39","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1302"},{"pid":"p11","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1205"},{"pid":"p61","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"own","room":"PSB1204"},{"pid":"p65","date":"2026-11-01","time":"15:30-18:30","p":"P3","role":"opener","room":null},{"pid":"p19","date":"2026-11-02","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1307"},{"pid":"p42","date":"2026-11-02","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1204"},{"pid":"p4","date":"2026-11-02","time":"08:00-11:00","p":"P1","role":"proctor","room":"PSB1207"},{"pid":"p45","date":"2026-11-02","time":"08:00-11:00","p":"P1","role":"dist","room":null},{"pid":"p40","date":"2026-11-02","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1307"},{"pid":"p61","date":"2026-11-02","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1204"},{"pid":"p21","date":"2026-11-02","time":"08:00-11:00","p":"P1","role":"own","room":"PSB1207"},{"pid":"p65","date":"2026-11-02","time":"08:00-11:00","p":"P1","role":"opener","room":null}],"rooms":{"2026-10-19|13:00-16:00|PSB1303":[{"code":"127716","sec":"001","name":"Politics and Government of Thailand and Foreign Lessons","room":"PSB1303","n":4,"full":50,"teacher":"รศ.ดร.ธัญณ์ณภัทร์ เจริญพานิช","need":0,"distHelp":"นางสาวภูษณิศา สายคำ","range":"691931001 - 691931004","key":"1/2569-FINAL|127716|001|000"}],"2026-10-20|12:00-15:00|PSB1310":[{"code":"140104","sec":"014","name":"Citizenship (ที่นั่ง onsite)","room":"PSB1310","n":50,"full":96.2,"teacher":"รศ.ดร.ชนินทร เพ็ญสูตร","need":0,"distHelp":null,"range":"(ไม่มีรายชื่อจริง)","key":"EXTRA|EXT-9001"}],"2026-10-20|15:30-18:30|PSB1101":[{"code":"131101","sec":"701","name":"Introduction to Sustainability","room":"PSB1101","n":56,"full":37.8,"teacher":"รศ.ดร.ชนินทร เพ็ญสูตร","need":0,"distHelp":"นายอติกานต์ แสงวิลัย","range":"680415504 - 691915505","key":"1/2569-FINAL|131101|701|000"}],"2026-10-21|12:00-15:00|AUD50":[{"code":"126212","sec":"001","name":"History of International Relations","room":"AUD50","n":81,"full":46.8,"teacher":"อ.ดร.ปราน จินตะเวช","need":2,"distHelp":null,"range":"661810010 - 681910245","key":"1/2569-FINAL|126212|001|000"}],"2026-10-21|12:00-15:00|PSB1101":[{"code":"126328","sec":"001","name":"International Political Economy","room":"PSB1101","n":103,"full":69.6,"teacher":"ผศ.ดร.พิชญ์อาภา พิศุทธ์เศรณี","need":2,"distHelp":null,"range":"660110078 - 671910271","key":"1/2569-FINAL|126328|001|000"}],"2026-10-21|12:00-15:00|PSB1201":[{"code":"128202","sec":"001","name":"Organization and Management","room":"PSB1201","n":46,"full":95.8,"teacher":"รศ.ดร.ปฐมาวดี จงรักษ์","need":1,"distHelp":null,"range":"670410174 - 681910165","key":"1/2569-FINAL|128202|001|000"}],"2026-10-21|12:00-15:00|PSB1207":[{"code":"127428","sec":"001","name":"Youth Politics and Popular Culture","room":"PSB1207","n":22,"full":95.7,"teacher":"ผศ.ดร.มาลินี คุ้มสุภา","need":1,"distHelp":null,"range":"651910039 - 661910070","key":"1/2569-FINAL|127428|001|000"}],"2026-10-21|12:00-15:00|PSB1307":[{"code":"128434","sec":"001","name":"Local Public Finance","room":"PSB1307","n":24,"full":80,"teacher":"ผศ.ดร.ไกรวุฒิ ใจคำปัน","need":1,"distHelp":null,"range":"661910071 - 661910160","key":"1/2569-FINAL|128434|001|000"}],"2026-10-21|12:00-15:00|PSB1310":[{"code":"128202","sec":"002","name":"Organization and Management","room":"PSB1310","n":43,"full":82.7,"teacher":"อ.ดร.ศศิพัชร์ ชัยสิริบดินทร์","need":1,"distHelp":null,"range":"670110185 - 691910105","key":"1/2569-FINAL|128202|002|000"}],"2026-10-22|12:00-15:00|AUD50":[{"code":"127416","sec":"001","name":"Information Technology and Digital Communication for Political Scientists","room":"AUD50","n":60,"full":34.7,"teacher":"อ.ดร.พรชนก เรืองวีรยุทธ","need":1,"distHelp":null,"range":"651910004 - 671910247","key":"1/2569-FINAL|127416|001|000"}],"2026-10-22|12:00-15:00|PSB1101":[{"code":"127202","sec":"001","name":"Western Political Philosophy","room":"PSB1101","n":77,"full":52,"teacher":"ผศ.ดร.วันพัฒน์ ยังมีวิทยา","need":2,"distHelp":null,"range":"671910011 - 681910078","key":"1/2569-FINAL|127202|001|000"}],"2026-10-22|12:00-15:00|PSB1201":[{"code":"126346","sec":"001","name":"People’s Republic of China in the World Politics and Economy","room":"PSB1201","n":43,"full":89.6,"teacher":"ผศ.ดร.พิชญ์อาภา พิศุทธ์เศรณี","need":1,"distHelp":null,"range":"651910252 - 671910249","key":"1/2569-FINAL|126346|001|000"}],"2026-10-22|12:00-15:00|PSB1204":[{"code":"128425","sec":"001","name":"Labor Administration","room":"PSB1204","n":38,"full":100,"teacher":"รศ.ศิริพงษ์ ลดาวัลย์ ณ อยุธยา","need":1,"distHelp":null,"range":"630410139 - 661910250","key":"1/2569-FINAL|128425|001|000"}],"2026-10-22|12:00-15:00|PSB1205":[{"code":"213362","sec":"702","name":"วิชาของอาจารย์นอกคณะ (ตอน 702)","room":"PSB1205","n":35,"full":83.3,"teacher":null,"need":2,"distHelp":null,"range":"(ไม่มีรายชื่อจริง)","key":"EXTRA|EXT-9003"}],"2026-10-22|12:00-15:00|PSB1207":[{"code":"127327","sec":"001","name":"Political and Economic Changes in the GMS Countries","room":"PSB1207","n":21,"full":91.3,"teacher":"ผศ.ดร.สุพิชฌาย์ ปัญญา","need":1,"distHelp":null,"range":"660110701 - 671910276","key":"1/2569-FINAL|127327|001|000"}],"2026-10-22|12:00-15:00|PSB1208":[{"code":"213362","sec":"701","name":"วิชาของอาจารย์นอกคณะ (ตอน 701)","room":"PSB1208","n":19,"full":82.6,"teacher":null,"need":2,"distHelp":null,"range":"(ไม่มีรายชื่อจริง)","key":"EXTRA|EXT-9002"}],"2026-10-22|12:00-15:00|PSB1303":[{"code":"127711","sec":"001","name":"Social Sciences Philosophy and Methodology","room":"PSB1303","n":4,"full":50,"teacher":"ผศ.ดร.มาลินี คุ้มสุภา","need":0,"distHelp":null,"range":"691931001 - 691931004","key":"1/2569-FINAL|127711|001|000"}],"2026-10-22|12:00-15:00|PSB1311":[{"code":"128334","sec":"001","name":"Public Choice","room":"PSB1311","n":12,"full":52.2,"teacher":"ผศ.ดร.ไกรวุฒิ ใจคำปัน","need":1,"distHelp":null,"range":"671910093 - 671910155","key":"1/2569-FINAL|128334|001|000"}],"2026-10-22|13:00-16:00|PSB1306":[{"code":"127759","sec":"001","name":"Politics of Environment and Natural Management","room":"PSB1306","n":4,"full":50,"teacher":"รศ.ดร.ธัญณ์ณภัทร์ เจริญพานิช","need":0,"distHelp":"นางสาวมาธวี เมืองศรี","range":"691931001 - 691931004","key":"1/2569-FINAL|127759|001|000"}],"2026-10-24|12:00-13:30|PSB1101":[{"code":"127100","sec":"001","name":"Politics in Everyday Life","room":"PSB1101","n":135,"full":91.2,"teacher":"อ.ดร.พรชนก เรืองวีรยุทธ","need":1,"distHelp":"นางสาวพรชนก เสนะสุทธิพันธุ์","range":"650110351 - 691610138","key":"1/2569-FINAL|127100|001|000"}],"2026-10-24|15:30-18:30|AUD50":[{"code":"127101","sec":"004","name":"Introduction to Political Science","room":"AUD50","n":169,"full":97.7,"teacher":"ผศ.ดร.ณัฐกร วิทิตานนท์","need":3,"distHelp":null,"range":"650110382 - 690410263","key":"1/2569-FINAL|127101|004|000"}],"2026-10-24|15:30-18:30|PSB1101":[{"code":"127101","sec":"002","name":"Introduction to Political Science","room":"PSB1101","n":122,"full":82.4,"teacher":"ผศ.ราม โชติคุต","need":2,"distHelp":null,"range":"691910081 - 691910205","key":"1/2569-FINAL|127101|002|000"}],"2026-10-24|15:30-18:30|PSB1201":[{"code":"127101","sec":"002","name":"Introduction to Political Science","room":"PSB1201","n":39,"full":81.2,"teacher":null,"need":2,"distHelp":null,"range":"691910206 - 691910244","key":"1/2569-FINAL|127101|002|000"}],"2026-10-24|15:30-18:30|PSB1204":[{"code":"127101","sec":"001","name":"Introduction to Political Science","room":"PSB1204","n":37,"full":97.4,"teacher":null,"need":2,"distHelp":null,"range":"691910001 - 691910037","key":"1/2569-FINAL|127101|001|000"}],"2026-10-24|15:30-18:30|PSB1205":[{"code":"127101","sec":"001","name":"Introduction to Political Science","room":"PSB1205","n":40,"full":95.2,"teacher":null,"need":2,"distHelp":null,"range":"691910038 - 691910079","key":"1/2569-FINAL|127101|001|000"}],"2026-10-24|15:30-18:30|PSB1310":[{"code":"127101+127101","sec":"003+701","name":"Introduction to Political Science + Introduction to Political Science","room":"PSB1310","n":51,"full":98.1,"teacher":"อ.ณิศนีญ์ ชัยประกอบวิริยะ","need":1,"distHelp":null,"range":"660115028 - 690415528","key":"1/2569-FINAL|127101|003|000+1/2569-FINAL|127101|701|000"}],"2026-10-25|08:00-11:00|AUD50":[{"code":"128204","sec":"002","name":"Local Administration","room":"AUD50","n":56,"full":32.4,"teacher":"รศ.ดร.พนม กุณาวงค์","need":1,"distHelp":null,"range":"671910123 - 681910162","key":"1/2569-FINAL|128204|002|000"}],"2026-10-25|08:00-11:00|PSB1101":[{"code":"127411","sec":"001","name":"Democratization","room":"PSB1101","n":60,"full":40.5,"teacher":"ผศ.ดร.ภาณุวัฒน์ พันธุ์ประเสริฐ","need":1,"distHelp":null,"range":"651910024 - 661910070","key":"1/2569-FINAL|127411|001|000"}],"2026-10-25|08:00-11:00|PSB1204":[{"code":"126338","sec":"001","name":"International Development in International Relations Perspective","room":"PSB1204","n":26,"full":68.4,"teacher":"ผศ.ดร.เบญจมาศ นิลสุวรรณ์","need":1,"distHelp":null,"range":"660110078 - 671910262","key":"1/2569-FINAL|126338|001|000"}],"2026-10-25|08:00-11:00|PSB1205":[{"code":"126216","sec":"001","name":"Readings in International Relations 1","room":"PSB1205","n":26,"full":61.9,"teacher":"อ.ดร.Matthew Robson","need":1,"distHelp":null,"range":"691910160 - 691910244","key":"1/2569-FINAL|126216|001|000"}],"2026-10-25|08:00-11:00|PSB1206":[{"code":"128357","sec":"001","name":"Administration of Administrative Justice","room":"PSB1206","n":14,"full":33.3,"teacher":"รศ.ดร.ฐิติวุฒิ บุญยวงศ์วิวัชร","need":1,"distHelp":null,"range":"671910093 - 671910171","key":"1/2569-FINAL|128357|001|000"}],"2026-10-25|08:00-11:00|PSB1207":[{"code":"128354","sec":"001","name":"Public Archive and Modern Conference","room":"PSB1207","n":22,"full":95.7,"teacher":"ผศ.ดร.วรพงศ์ ตระการศิรินนท์","need":1,"distHelp":null,"range":"630410139 - 671910167","key":"1/2569-FINAL|128354|001|000"}],"2026-10-25|08:00-11:00|PSB1208":[{"code":"126216","sec":"002","name":"Readings in International Relations 1","room":"PSB1208","n":22,"full":95.7,"teacher":"ผศ.ดร.อัจฉรียา สายศิลป์","need":1,"distHelp":null,"range":"651910190 - 691910202","key":"1/2569-FINAL|126216|002|000"}],"2026-10-25|08:00-11:00|PSB1307":[{"code":"128204","sec":"001","name":"Local Administration","room":"PSB1307","n":29,"full":96.7,"teacher":"รศ.ดร.ธันยวัฒน์ รัตนสัค","need":1,"distHelp":null,"range":"661910250 - 681910166","key":"1/2569-FINAL|128204|001|000"}],"2026-10-25|08:00-11:00|PSB1311":[{"code":"126216","sec":"004","name":"Readings in International Relations 1","room":"PSB1311","n":21,"full":91.3,"teacher":"อ.ดร.ปราน จินตะเวช","need":1,"distHelp":null,"range":"681910173 - 691910242","key":"1/2569-FINAL|126216|004|000"}],"2026-10-25|08:00-11:00|PSB1312":[{"code":"126216","sec":"003","name":"Readings in International Relations 1","room":"PSB1312","n":18,"full":78.3,"teacher":"ผศ.ดร.กมลพร หิรัญรัศ","need":1,"distHelp":null,"range":"691910204 - 691910222","key":"1/2569-FINAL|126216|003|000"}],"2026-10-25|12:00-15:00|PSB1207":[{"code":"127717","sec":"801","name":"Concepts and Theories of Contemporary Comparative Politics","room":"PSB1207","n":18,"full":78.3,"teacher":"ผศ.ดร.ภาณุวัฒน์ พันธุ์ประเสริฐ","need":1,"distHelp":null,"range":"681932053 - 691932073","key":"1/2569-FINAL|127717|801|000"}],"2026-10-25|12:00-15:00|PSB1303":[{"code":"127717","sec":"001","name":"Concepts and Theories of Contemporary Comparative Politics","room":"PSB1303","n":4,"full":50,"teacher":"ผศ.ดร.ณัฐพล ตันตระกูลทรัพย์","need":0,"distHelp":null,"range":"691931001 - 691931004","key":"1/2569-FINAL|127717|001|000"}],"2026-10-25|15:30-18:30|PSB1204":[{"code":"128307","sec":"002","name":"Strategic Management Techniques","room":"PSB1204","n":36,"full":94.7,"teacher":"ผศ.ดร.รวีวรรณ แพทย์สมาน","need":1,"distHelp":null,"range":"671910094 - 691910105","key":"1/2569-FINAL|128307|002|000"}],"2026-10-25|15:30-18:30|PSB1205":[{"code":"128307","sec":"001","name":"Strategic Management Techniques","room":"PSB1205","n":40,"full":95.2,"teacher":"ผศ.ดร.พจนา พิชิตปัจจา","need":1,"distHelp":null,"range":"671910091 - 671910171","key":"1/2569-FINAL|128307|001|000"}],"2026-10-26|08:00-11:00|AUD50":[{"code":"127316","sec":"001","name":"Politics and Government in Southeast Asia","room":"AUD50","n":97,"full":56.1,"teacher":"ผศ.ดร.ณัฐพล ตันตระกูลทรัพย์","need":2,"distHelp":null,"range":"651910004 - 681910246","key":"1/2569-FINAL|127316|001|000"}],"2026-10-26|08:00-11:00|PSB1101":[{"code":"126321","sec":"001","name":"Introduction to International Law","room":"PSB1101","n":98,"full":66.2,"teacher":"ผศ.ดร.วรรณภา ลีระศิริ","need":2,"distHelp":null,"range":"660410088 - 671910271","key":"1/2569-FINAL|126321|001|000"}],"2026-10-26|08:00-11:00|PSB1204":[{"code":"131201","sec":"701","name":"Sustainability Governance","room":"PSB1204","n":34,"full":89.5,"teacher":"ผศ.ดร.เบญจมาศ นิลสุวรรณ์","need":1,"distHelp":null,"range":"681915002 - 681915513","key":"1/2569-FINAL|131201|701|000"}],"2026-10-26|08:00-11:00|PSB1207":[{"code":"126324","sec":"001","name":"International Organizations","room":"PSB1207","n":20,"full":87,"teacher":"ผศ.ดร.กัญญณัฏฐา อิทธินิติวุฒิ","need":1,"distHelp":null,"range":"650410283 - 681610483","key":"1/2569-FINAL|126324|001|000"}],"2026-10-26|08:00-11:00|PSB1307":[{"code":"128431","sec":"001","name":"Governmental Budgeting","room":"PSB1307","n":25,"full":83.3,"teacher":"ผศ.ดร.วรพงศ์ ตระการศิรินนท์","need":1,"distHelp":null,"range":"641910099 - 661910158","key":"1/2569-FINAL|128431|001|000"}],"2026-10-26|15:30-18:30|AUD50":[{"code":"127417","sec":"001","name":"Politics and Government in Indo-Pacific","room":"AUD50","n":67,"full":38.7,"teacher":"ผศ.ราม โชติคุต","need":1,"distHelp":null,"range":"651910039 - 671910087","key":"1/2569-FINAL|127417|001|000"}],"2026-10-26|15:30-18:30|PSB1101":[{"code":"127312","sec":"001","name":"Modern Thai State and Political Dynamics","room":"PSB1101","n":121,"full":81.8,"teacher":"ผศ.ดร.มาลินี คุ้มสุภา","need":2,"distHelp":null,"range":"651910004 - 681910241","key":"1/2569-FINAL|127312|001|000"}],"2026-10-26|15:30-18:30|PSB1204":[{"code":"126341","sec":"001","name":"Politics and International Relations of Myanmar","room":"PSB1204","n":34,"full":89.5,"teacher":"อ.ดร.ศิรดา เขมานิฏฐาไท","need":1,"distHelp":null,"range":"641910182 - 671910271","key":"1/2569-FINAL|126341|001|000"}],"2026-10-26|15:30-18:30|PSB1207":[{"code":"126339","sec":"001","name":"Southeast Asia in World Politics","room":"PSB1207","n":22,"full":95.7,"teacher":"ผศ.ดร.อัจฉรียา สายศิลป์","need":1,"distHelp":null,"range":"650110160 - 671910245","key":"1/2569-FINAL|126339|001|000"}],"2026-10-26|15:30-18:30|PSB1208":[{"code":"126348+126348","sec":"701+001","name":"Politics and International Relations of the Middle East and North Africa (MENA) + Politics and International Relations of the Middle East and North Africa (MENA)","room":"PSB1208","n":12,"full":52.2,"teacher":"อ.ดร.Matthew Robson","need":1,"distHelp":null,"range":"670110116 - 680115545","key":"1/2569-FINAL|126348|701|000+1/2569-FINAL|126348|001|000"}],"2026-10-27|08:00-11:00|PSB1307":[{"code":"128427","sec":"001","name":"Reward Management","room":"PSB1307","n":29,"full":96.7,"teacher":"อ.ดร.นัทธพงศ์ ปกีรณัม","need":0,"distHelp":"นางสาวมาธวี เมืองศรี","range":"641910099 - 661910251","key":"1/2569-FINAL|128427|001|000"}],"2026-10-27|12:00-15:00|AUD50":[{"code":"126101","sec":"002","name":"Introduction to International Relations","room":"AUD50","n":83,"full":48,"teacher":"ผศ.ดร.อัจฉรา บรรจงประเสริฐ","need":2,"distHelp":null,"range":"661610135 - 691610196","key":"1/2569-FINAL|126101|002|000"}],"2026-10-27|12:00-15:00|ECON-A":[{"code":"126101","sec":"701","name":"Introduction to International Relations","room":"ECON-A","n":64,"full":82.1,"teacher":"อ.ดร.Matthew Robson","need":1,"distHelp":null,"range":"631615001 - 691615548","key":"1/2569-FINAL|126101|701|000"}],"2026-10-27|12:00-15:00|ECON-B":[{"code":"126101","sec":"702","name":"Introduction to International Relations","room":"ECON-B","n":79,"full":89.8,"teacher":"รศ.ดร.LEE KIAN CHENG","need":2,"distHelp":null,"range":"670115549 - 691615072","key":"1/2569-FINAL|126101|702|000"}],"2026-10-27|12:00-15:00|PSB1101":[{"code":"128203","sec":"001","name":"Human Resource Management","room":"PSB1101","n":88,"full":59.5,"teacher":"อ.ดร.นัทธพงศ์ ปกีรณัม","need":2,"distHelp":null,"range":"630410139 - 691910105","key":"1/2569-FINAL|128203|001|000"}],"2026-10-27|12:00-15:00|PSB1201":[{"code":"126101","sec":"003","name":"Introduction to International Relations","room":"PSB1201","n":44,"full":91.7,"teacher":"ผศ.ดร.พิชญ์อาภา พิศุทธ์เศรณี","need":1,"distHelp":null,"range":"661610113 - 680110759","key":"1/2569-FINAL|126101|003|000"}],"2026-10-27|12:00-15:00|PSB1204":[{"code":"126101","sec":"003","name":"Introduction to International Relations","room":"PSB1204","n":34,"full":89.5,"teacher":null,"need":2,"distHelp":null,"range":"681610350 - 691610228","key":"1/2569-FINAL|126101|003|000"}],"2026-10-27|12:00-15:00|PSB1205":[{"code":"126101","sec":"006","name":"Introduction to International Relations","room":"PSB1205","n":41,"full":97.6,"teacher":"ผศ.ดร.กัญญณัฏฐา อิทธินิติวุฒิ","need":1,"distHelp":null,"range":"661610420 - 691610150","key":"1/2569-FINAL|126101|006|000"}],"2026-10-27|12:00-15:00|PSB1206":[{"code":"126101","sec":"006","name":"Introduction to International Relations","room":"PSB1206","n":41,"full":97.6,"teacher":null,"need":2,"distHelp":null,"range":"691610151 - 691610211","key":"1/2569-FINAL|126101|006|000"}],"2026-10-27|12:00-15:00|PSB1207":[{"code":"126101","sec":"004","name":"Introduction to International Relations","room":"PSB1207","n":22,"full":95.7,"teacher":"รศ.ดร.พฤดี หงุ่ยตระกูล","need":1,"distHelp":null,"range":"660110674 - 671610173","key":"1/2569-FINAL|126101|004|000"}],"2026-10-27|12:00-15:00|PSB1208":[{"code":"126101","sec":"007","name":"Introduction to International Relations","room":"PSB1208","n":21,"full":91.3,"teacher":null,"need":2,"distHelp":null,"range":"660610767 - 671610054","key":"1/2569-FINAL|126101|007|000"}],"2026-10-27|12:00-15:00|PSB1302":[{"code":"126101","sec":"007","name":"Introduction to International Relations","room":"PSB1302","n":49,"full":92.5,"teacher":"อ.ดร.ศิรดา เขมานิฏฐาไท","need":1,"distHelp":null,"range":"671610056 - 690410211","key":"1/2569-FINAL|126101|007|000"}],"2026-10-27|12:00-15:00|PSB1303":[{"code":"126101","sec":"007","name":"Introduction to International Relations","room":"PSB1303","n":7,"full":87.5,"teacher":null,"need":1,"distHelp":null,"range":"690410239 - 691610233","key":"1/2569-FINAL|126101|007|000"}],"2026-10-27|12:00-15:00|PSB1306":[{"code":"126101","sec":"004","name":"Introduction to International Relations","room":"PSB1306","n":8,"full":100,"teacher":null,"need":1,"distHelp":null,"range":"671610190 - 671610358","key":"1/2569-FINAL|126101|004|000"}],"2026-10-27|12:00-15:00|PSB1307":[{"code":"126101","sec":"005","name":"Introduction to International Relations","room":"PSB1307","n":29,"full":96.7,"teacher":null,"need":2,"distHelp":null,"range":"661610264 - 691610067","key":"1/2569-FINAL|126101|005|000"}],"2026-10-27|12:00-15:00|PSB1308":[{"code":"126101","sec":"001","name":"Introduction to International Relations","room":"PSB1308","n":41,"full":97.6,"teacher":"อ.ดร.ปราน จินตะเวช","need":1,"distHelp":null,"range":"661610064 - 691910036","key":"1/2569-FINAL|126101|001|000"}],"2026-10-27|12:00-15:00|PSB1309":[{"code":"126101","sec":"001","name":"Introduction to International Relations","room":"PSB1309","n":41,"full":97.6,"teacher":null,"need":2,"distHelp":null,"range":"691910037 - 691910079","key":"1/2569-FINAL|126101|001|000"}],"2026-10-27|12:00-15:00|PSB1310":[{"code":"126101","sec":"005","name":"Introduction to International Relations","room":"PSB1310","n":50,"full":96.2,"teacher":"ผศ.ดร.อัจฉรียา สายศิลป์","need":1,"distHelp":null,"range":"691610068 - 691610251","key":"1/2569-FINAL|126101|005|000"}],"2026-10-27|12:00-15:00|PSB1311":[{"code":"126101","sec":"004","name":"Introduction to International Relations","room":"PSB1311","n":22,"full":95.7,"teacher":null,"need":2,"distHelp":null,"range":"671610359 - 680110757","key":"1/2569-FINAL|126101|004|000"}],"2026-10-27|12:00-15:00|PSB1312":[{"code":"126101","sec":"004","name":"Introduction to International Relations","room":"PSB1312","n":22,"full":95.7,"teacher":null,"need":2,"distHelp":null,"range":"680110773 - 691610241","key":"1/2569-FINAL|126101|004|000"}],"2026-10-28|12:00-15:00|PSB1204":[{"code":"126460","sec":"001","name":"Energy Security in World Politics","room":"PSB1204","n":36,"full":94.7,"teacher":"ผศ.ดร.กมลพร หิรัญรัศ","need":1,"distHelp":null,"range":"651610368 - 671910269","key":"1/2569-FINAL|126460|001|000"}],"2026-10-28|12:00-15:00|PSB1207":[{"code":"128355","sec":"001","name":"Electronic Government","room":"PSB1207","n":19,"full":82.6,"teacher":"รศ.ดร.พนม กุณาวงค์","need":1,"distHelp":null,"range":"631910114 - 671910167","key":"1/2569-FINAL|128355|001|000"}],"2026-10-28|12:00-15:00|PSB1208":[{"code":"128462","sec":"001","name":"Management in Crisis","room":"PSB1208","n":9,"full":39.1,"teacher":"รศ.ดร.ฐิติวุฒิ บุญยวงศ์วิวัชร","need":0,"distHelp":null,"range":"661910072 - 661910163","key":"1/2569-FINAL|128462|001|000"}],"2026-10-28|12:00-15:00|PSB1307":[{"code":"126427","sec":"001","name":"Current Affairs in International Relations","room":"PSB1307","n":24,"full":80,"teacher":"ผศ.ดร.เบญจมาศ นิลสุวรรณ์","need":1,"distHelp":null,"range":"660110600 - 680110577","key":"1/2569-FINAL|126427|001|000"}],"2026-10-28|15:30-18:30|AUD50":[{"code":"128101","sec":"003","name":"Introduction to Public Administration","room":"AUD50","n":80,"full":46.2,"teacher":"อ.พิกุล อิทธิหิรัญวงศ์","need":2,"distHelp":null,"range":"660410095 - 691910244","key":"1/2569-FINAL|128101|003|000"}],"2026-10-28|15:30-18:30|PSB1101":[{"code":"128101","sec":"004","name":"Introduction to Public Administration","room":"PSB1101","n":100,"full":67.6,"teacher":"ผศ.ดร.อรชร แซ่จาง","need":2,"distHelp":null,"range":"670410147 - 691910242","key":"1/2569-FINAL|128101|004|000"}],"2026-10-28|15:30-18:30|PSB1201":[{"code":"128101","sec":"002","name":"Introduction to Public Administration","room":"PSB1201","n":43,"full":89.6,"teacher":"ผศ.ดร.รวีวรรณ แพทย์สมาน","need":1,"distHelp":null,"range":"691910117 - 691910159","key":"1/2569-FINAL|128101|002|000"}],"2026-10-28|15:30-18:30|PSB1204":[{"code":"128101","sec":"001","name":"Introduction to Public Administration","room":"PSB1204","n":34,"full":89.5,"teacher":"รศ.ศิริพงษ์ ลดาวัลย์ ณ อยุธยา","need":1,"distHelp":null,"range":"691910081 - 691910116","key":"1/2569-FINAL|128101|001|000"}],"2026-10-29|12:00-15:00|PSB1101":[{"code":"127317","sec":"001","name":"Comparative Constitution","room":"PSB1101","n":85,"full":57.4,"teacher":"ผศ.ดร.ณัฐกร วิทิตานนท์","need":2,"distHelp":null,"range":"651910004 - 681910035","key":"1/2569-FINAL|127317|001|000"}],"2026-10-29|12:00-15:00|PSB1204":[{"code":"131204","sec":"701","name":"Sustainable Transformation Management","room":"PSB1204","n":34,"full":89.5,"teacher":"รศ.ดร.วิชชุดา สร้างเอี่ยม","need":1,"distHelp":null,"range":"681915002 - 681915513","key":"1/2569-FINAL|131204|701|000"}],"2026-10-29|12:00-15:00|PSB1205":[{"code":"128403","sec":"002","name":"Project Management","room":"PSB1205","n":34,"full":81,"teacher":"ผศ.ดร.อุดมโชค อาษาวิมลกิจ","need":1,"distHelp":null,"range":"671910092 - 671910167","key":"1/2569-FINAL|128403|002|000"}],"2026-10-30|12:00-15:00|PSB1207":[{"code":"128324","sec":"001","name":"Managing Employee Well-Being at Work","room":"PSB1207","n":22,"full":95.7,"teacher":"อ.ดร.นัทธพงศ์ ปกีรณัม","need":0,"distHelp":"นางสาวพีชชา กาบปินะ","range":"671910091 - 671910168","key":"1/2569-FINAL|128324|001|000"}],"2026-10-31|15:30-18:30|PSB1201":[{"code":"126331","sec":"001","name":"Great Powers and World Order","room":"PSB1201","n":45,"full":93.8,"teacher":"ผศ.ดร.อัจฉรา บรรจงประเสริฐ","need":1,"distHelp":null,"range":"660110706 - 671910270","key":"1/2569-FINAL|126331|001|000"}],"2026-10-31|15:30-18:30|PSB1205":[{"code":"127432","sec":"001","name":"Religion and Politics","room":"PSB1205","n":40,"full":95.2,"teacher":"ผศ.ดร.วันพัฒน์ ยังมีวิทยา","need":1,"distHelp":null,"range":"651910049 - 671910085","key":"1/2569-FINAL|127432|001|000"}],"2026-10-31|15:30-18:30|PSB1307":[{"code":"127338","sec":"001","name":"Political Conflict and Violence","room":"PSB1307","n":26,"full":86.7,"teacher":"อ.ดร.มานิตา หนูสวัสดิ์","need":1,"distHelp":null,"range":"651910003 - 681910218","key":"1/2569-FINAL|127338|001|000"}],"2026-11-01|15:30-18:30|AUD50":[{"code":"127337","sec":"001","name":"Military and Politics","room":"AUD50","n":63,"full":36.4,"teacher":"ผศ.ดร.ภาณุวัฒน์ พันธุ์ประเสริฐ","need":1,"distHelp":null,"range":"621910001 - 681910246","key":"1/2569-FINAL|127337|001|000"}],"2026-11-01|15:30-18:30|PSB1101":[{"code":"126218","sec":"001","name":"Intermediate Academic English Writing in International Relations","room":"PSB1101","n":70,"full":47.3,"teacher":"รศ.ดร.LEE KIAN CHENG","need":1,"distHelp":null,"range":"671910220 - 681910245","key":"1/2569-FINAL|126218|001|000"}],"2026-11-01|15:30-18:30|PSB1201":[{"code":"126433","sec":"001","name":"Human Rights and Humanitarianism in International Relations","room":"PSB1201","n":46,"full":95.8,"teacher":"อ.ดร.ศิรดา เขมานิฏฐาไท","need":1,"distHelp":null,"range":"640110188 - 671910271","key":"1/2569-FINAL|126433|001|000"}],"2026-11-01|15:30-18:30|PSB1204":[{"code":"127426","sec":"001","name":"Politics of Development","room":"PSB1204","n":33,"full":86.8,"teacher":"ผศ.ดร.สุพิชฌาย์ ปัญญา","need":1,"distHelp":null,"range":"651910003 - 671910077","key":"1/2569-FINAL|127426|001|000"}],"2026-11-01|15:30-18:30|PSB1205":[{"code":"126336","sec":"001","name":"Foreign Policy Analysis","room":"PSB1205","n":39,"full":92.9,"teacher":"ผศ.ดร.กมลพร หิรัญรัศ","need":1,"distHelp":null,"range":"641610262 - 671910270","key":"1/2569-FINAL|126336|001|000"}],"2026-11-01|15:30-18:30|PSB1302":[{"code":"128401","sec":"002","name":"Ethics for Administrators","room":"PSB1302","n":43,"full":81.1,"teacher":"อ.พิกุล อิทธิหิรัญวงศ์","need":1,"distHelp":null,"range":"641910099 - 661910162","key":"1/2569-FINAL|128401|002|000"}],"2026-11-01|15:30-18:30|PSB1310":[{"code":"128401","sec":"001","name":"Ethics for Administrators","room":"PSB1310","n":44,"full":84.6,"teacher":"รศ.ดร.ธันยวัฒน์ รัตนสัค","need":1,"distHelp":null,"range":"661910032 - 661910251","key":"1/2569-FINAL|128401|001|000"}],"2026-11-02|08:00-11:00|PSB1204":[{"code":"127207","sec":"001","name":"Reading and Writing in Political Science","room":"PSB1204","n":26,"full":68.4,"teacher":"ผศ.ดร.สุพิชฌาย์ ปัญญา","need":1,"distHelp":null,"range":"670410088 - 681910246","key":"1/2569-FINAL|127207|001|000"}],"2026-11-02|08:00-11:00|PSB1207":[{"code":"127207","sec":"003","name":"Reading and Writing in Political Science","room":"PSB1207","n":21,"full":91.3,"teacher":"อ.ดร.มานิตา หนูสวัสดิ์","need":1,"distHelp":null,"range":"671910059 - 681910078","key":"1/2569-FINAL|127207|003|000"}],"2026-11-02|08:00-11:00|PSB1307":[{"code":"127207","sec":"002","name":"Reading and Writing in Political Science","room":"PSB1307","n":26,"full":86.7,"teacher":"อ.ดร.พินสุดา วงศ์อนันต์","need":1,"distHelp":null,"range":"681910001 - 681910076","key":"1/2569-FINAL|127207|002|000"}]},"problems":["คนคุมสอบไม่พอ 2026-10-27 12:00–15:00 ห้อง PSB1306 (1/2569-FINAL|126101|004|000) ขาดอีก 1 คน"],"unavail":[{"pid":"p62","date":"2026-10-24","reason":"เรียน ป.โท ทุกเสาร์-อาทิตย์ของรอบนี้"},{"pid":"p62","date":"2026-10-25","reason":"เรียน ป.โท ทุกเสาร์-อาทิตย์ของรอบนี้"},{"pid":"p62","date":"2026-10-31","reason":"เรียน ป.โท ทุกเสาร์-อาทิตย์ของรอบนี้"},{"pid":"p62","date":"2026-11-01","reason":"เรียน ป.โท ทุกเสาร์-อาทิตย์ของรอบนี้"},{"pid":"p59","date":"2026-10-24","reason":"เรียน ป.โท ทุกเสาร์-อาทิตย์ของรอบนี้"},{"pid":"p59","date":"2026-10-25","reason":"เรียน ป.โท ทุกเสาร์-อาทิตย์ของรอบนี้"},{"pid":"p59","date":"2026-10-31","reason":"เรียน ป.โท ทุกเสาร์-อาทิตย์ของรอบนี้"},{"pid":"p59","date":"2026-11-01","reason":"เรียน ป.โท ทุกเสาร์-อาทิตย์ของรอบนี้"},{"pid":"p4","date":"2026-10-19","reason":"คุมสอบภาษาอังกฤษพื้นฐาน (001xxx) ปลายภาค 1/2569 — ตารางคนละระบบ"},{"pid":"p2","date":"2026-08-24 P3","reason":5},{"pid":"p4","date":"2026-08-24 P3","reason":5},{"pid":"p19","date":"2026-08-24 P3","reason":3},{"pid":"p22","date":"2026-08-24 P2","reason":4},{"pid":"p37","date":"2026-08-24 P3","reason":5},{"pid":"p41","date":"2026-08-24 P2","reason":6},{"pid":"p42","date":"2026-08-24 P3","reason":4},{"pid":"p49","date":"2026-08-24 P3","reason":4},{"pid":"p51","date":"2026-08-24 P1","reason":4},{"pid":"p52","date":"2026-08-24 P3","reason":3},{"pid":"p53","date":"2026-08-24 P2","reason":6},{"pid":"p54","date":"2026-08-24 P3","reason":3},{"pid":"p59","date":"2026-08-24 P3","reason":2},{"pid":"p60","date":"2026-08-24 P2","reason":5},{"pid":"p62","date":"2026-08-24 P2","reason":3},{"pid":"p66","date":"2026-08-24 P1","reason":4},{"pid":"p69","date":"2026-08-24 P2","reason":4},{"pid":"p70","date":"2026-08-24 P3","reason":4},{"pid":"p73","date":"2026-08-24 P2","reason":4},{"pid":"p75","date":"2026-08-24 P3","reason":4}]};
+
+const TH_DOW = ['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
+const TH_DOW_FULL = ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์'];
+const TH_MON = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+const TH_MON_FULL = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+const PERIODS = [{p:'P1',name:'เช้า',t:'08:00'},{p:'P2',name:'บ่าย',t:'12:00'},{p:'P3',name:'เย็น',t:'15:30'}];
+const ROLE_NAME = {proctor:'คุมสอบ',dist:'จ่ายข้อสอบ',opener:'เปิดห้อง',own:'คุมวิชาตนเอง'};
+const ROLE_SHORT = {proctor:'คุม',dist:'จ่าย',opener:'เปิด',own:'คุม'};
+const STACK_DOW = ['จ.','อ.','พ.','พฤ.','ศ.','ส.','อา.'];
+
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dObj = s => new Date(s + 'T00:00:00');
+const dow = s => dObj(s).getDay();
+const isWE = s => [0,6].includes(dow(s));
+const dayLong = s => { const d = dObj(s); return `วัน${TH_DOW_FULL[d.getDay()]}ที่ ${d.getDate()} ${TH_MON_FULL[d.getMonth()]} ${d.getFullYear()+543}`; };
+const dayShort = s => { const d = dObj(s); return `${TH_DOW[d.getDay()]} ${d.getDate()} ${TH_MON[d.getMonth()]}`; };
+const TITLE_RE = /^(นางสาว|นาง|นาย)/;
+const ACAD_RE = /^((?:รศ\.|ผศ\.|ศ\.|อ\.)?(?:ดร\.)?)/;
+function shortName(p){
+  let n = p.name.replace(/\s*\(.*\)\s*$/, '');
+  if (p.kind === 'staff') return n.replace(TITLE_RE, '');
+  return n.replace(ACAD_RE, '');
+}
+function firstName(name){ return name.replace(/\s*\(.*\)\s*$/,'').replace(TITLE_RE,'').replace(ACAD_RE,'').split(/\s+/)[0]; }
+function extraTag(p){ const m = p.name.match(/\((.*)\)\s*$/); return m ? m[1] : ''; }
+
+// ---------- indexes ----------
+const people = DATA.people;
+const byId = Object.fromEntries(people.map(p => [p.id, p]));
+const staff = people.filter(p => p.kind === 'staff');
+const teachers = people.filter(p => p.kind === 'teacher');
+const dutiesBy = {};
+DATA.duties.forEach(d => (dutiesBy[d.pid] ||= []).push(d));
+const sortD = (a,b) => (a.date+a.time).localeCompare(b.date+b.time);
+Object.values(dutiesBy).forEach(l => l.sort(sortD));
+const unavBy = {};
+DATA.unavail.forEach(u => (unavBy[u.pid] ||= new Set()).add(u.date));
+const staffDuties = DATA.duties.filter(d => d.role !== 'own');
+const staffCount = pid => (dutiesBy[pid] || []).filter(d => d.role !== 'own').length;
+const roomsAt = (date, time) => Object.entries(DATA.rooms).filter(([k]) => k.startsWith(date+'|'+time+'|')).map(([,v]) => v);
+const peopleAtRoom = (date, time, room) => DATA.duties.filter(d => d.date===date && d.time===time && d.room===room);
+const slotPeople = (date, time, role) => DATA.duties.filter(d => d.date===date && d.time===time && d.role===role).map(d => byId[d.pid]);
+const dayOpener = date => DATA.duties.filter(d => d.date===date && d.role==='opener').map(d => byId[d.pid]);
+const median = arr => { const s=[...arr].sort((a,b)=>a-b); const m=s.length>>1; return s.length? (s.length%2? s[m] : (s[m-1]+s[m])/2) : 0; };
+const staffLoads = staff.filter(p => staffCount(p.id) > 0).map(p => staffCount(p.id));
+const teamMedian = median(staffLoads);
+
+function personStats(pid){
+  const ds = (dutiesBy[pid] || []);
+  const dates = [...new Set(ds.map(d => d.date))].sort();
+  const we = dates.filter(isWE).length;
+  let consec = 0;
+  for (let i=1;i<dates.length;i++) if ((dObj(dates[i]) - dObj(dates[i-1])) === 864e5) consec++;
+  const byRole = {proctor:0,dist:0,opener:0,own:0};
+  ds.forEach(d => byRole[d.role]++);
+  return {ds, dates, we, consec, byRole, total: ds.length};
+}
+
+// ---------- tooltip ----------
+const tip = document.getElementById('tip');
+document.addEventListener('pointermove', e => {
+  const t = e.target.closest('[data-tip]');
+  if (!t) { tip.hidden = true; return; }
+  tip.innerHTML = t.dataset.tip;
+  tip.hidden = false;
+  const r = tip.getBoundingClientRect();
+  let x = e.clientX + 14, y = e.clientY + 14;
+  if (x + r.width > innerWidth - 8) x = e.clientX - r.width - 14;
+  if (y + r.height > innerHeight - 8) y = e.clientY - r.height - 14;
+  tip.style.left = Math.max(8,x) + 'px'; tip.style.top = Math.max(8,y) + 'px';
+});
+document.addEventListener('pointerleave', () => tip.hidden = true);
+
+// ---------- picker ----------
+const sel = document.getElementById('who');
+function buildPicker(){
+  const opt = (v, t) => `<option value="${esc(v)}">${esc(t)}</option>`;
+  const sortTh = (a,b) => shortName(a).localeCompare(shortName(b), 'th');
+  let h = opt('all', '— ภาพรวมทั้งทีม —');
+  h += `<optgroup label="พนักงาน (${staff.length})">` + [...staff].sort(sortTh).map(p => {
+    const tag = extraTag(p);
+    return opt(p.id, shortName(p) + (tag ? ` · ${tag}` : ''));
+  }).join('') + '</optgroup>';
+  h += `<optgroup label="อาจารย์ (${teachers.length})">` + [...teachers].sort(sortTh).map(p => opt(p.id, shortName(p))).join('') + '</optgroup>';
+  sel.innerHTML = h;
+}
+let current = 'all';
+function select(id){
+  current = byId[id] ? id : 'all';
+  sel.value = current;
+  try { localStorage.setItem('exam-duty-who', current); } catch(e){}
+  render();
+}
+sel.addEventListener('change', () => select(sel.value));
+document.getElementById('showAll').addEventListener('click', () => select('all'));
+
+// ---------- who panel ----------
+function tile(k, v, unit, d){ return `<div class="tile"><span class="k">${k}</span><span class="v">${v}${unit?`<small>${unit}</small>`:''}</span><span class="d">${d||'&nbsp;'}</span></div>`; }
+function renderWho(){
+  const el = document.getElementById('whoPanel');
+  if (current === 'all'){
+    const s = DATA.summary;
+    const days = new Set(DATA.slots.map(x => x.date)).size;
+    const staffWith = staffLoads.length;
+    el.innerHTML = `<div class="who-id"><span class="eyebrow">กำลังดู</span><span class="name">ภาพรวมทั้งทีม</span>
+      <span class="muted small">เลือกชื่อตัวเองจากช่อง “ฉันคือ” ด้านบน เพื่อดูเฉพาะเวรของเรา</span></div>
+      <div class="tiles">
+        ${tile('วันที่มีสอบ', days, 'วัน', `${DATA.slots.length} ช่วงสอบ`)}
+        ${tile('ห้องสอบที่ใช้', s.rooms, 'ห้อง', 'นับแยกรายช่วง')}
+        ${tile('เวรพนักงาน', staffDuties.length, 'เวร', `แบ่งให้ ${staffWith} คน`)}
+        ${tile('เวรต่อคน (ค่ากลาง)', teamMedian, 'เวร', `ต่ำสุด ${Math.min(...staffLoads)} · สูงสุด ${Math.max(...staffLoads)}`)}
+      </div>`;
+    return;
+  }
+  const p = byId[current], st = personStats(current);
+  const tag = extraTag(p);
+  const kindTag = p.kind === 'staff' ? 'พนักงาน' : 'อาจารย์';
+  let id = `<div class="who-id"><span class="eyebrow">ตารางของ</span><span class="name">${esc(p.name.replace(/\s*\(.*\)\s*$/,''))}</span>
+    <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="tag">${kindTag}</span>${tag?`<span class="tag">${esc(tag)}</span>`:''}${p.kind==='staff' && p.canProctor===false?'<span class="tag">เปิดห้องได้ ไม่คุมสอบ</span>':''}</div>
+    ${p.note?`<span class="muted small">${esc(p.note)}</span>`:''}</div>`;
+  if (p.kind === 'teacher'){
+    const secs = new Set(st.ds.map(d => d.date+d.time+d.room)).size;
+    el.innerHTML = id + `<div class="tiles">
+      ${tile('ห้องที่คุมวิชาตนเอง', secs, 'ห้อง', '')}
+      ${tile('วันที่ต้องมา', st.dates.length, 'วัน', st.dates.map(dayShort).join(', '))}
+      ${tile('เสาร์–อาทิตย์', st.we, 'วัน', '')}
+      ${tile('วันติดกัน', st.consec, 'คู่', '')}</div>`;
+    return;
+  }
+  const b = st.byRole;
+  const parts = [b.proctor&&`คุมสอบ ${b.proctor}`, b.dist&&`จ่ายข้อสอบ ${b.dist}`, b.opener&&`เปิดห้อง ${b.opener}`].filter(Boolean).join(' · ');
+  const diff = st.total - teamMedian;
+  const cmp = st.total === 0 ? 'ไม่มีเวรในรอบนี้' : diff === 0 ? `เท่ากับค่ากลางทีม (${teamMedian})` : `${diff>0?'มากกว่า':'น้อยกว่า'}ค่ากลางทีม ${Math.abs(diff)} เวร`;
+  const un = unavBy[current];
+  el.innerHTML = id + `<div class="tiles">
+    ${tile('เวรรอบนี้', st.total, 'เวร', `${parts || '—'}<br><b>${cmp}</b>`)}
+    ${tile('วันที่ต้องมา', st.dates.length, 'วัน', st.dates.length ? `จาก ${new Set(DATA.slots.map(x=>x.date)).size} วันที่มีสอบ` : '')}
+    ${tile('เสาร์–อาทิตย์', st.we, 'วัน', un ? `แจ้งไม่ว่าง ${un.size} วัน (${[...un].map(dayShort).join(', ')})` : 'วันหยุดที่ต้องมา')}
+    ${tile('วันติดกัน', st.consec, 'คู่', st.consec ? 'มีเวรสองวันติดกัน' : 'ไม่มีเวรวันติดกัน')}</div>`;
+}
+
+// ---------- calendar ----------
+function renderCal(){
+  const days = DATA.days;
+  const cal = document.getElementById('cal');
+  cal.style.setProperty('--days', days.length);
+  const examCells = {};
+  DATA.slots.forEach(s => (examCells[s.date+'|'+s.p] ||= []).push(s.time));
+  const mine = current !== 'all';
+  const p = byId[current];
+  document.getElementById('calTitle').textContent = mine ? 'ปฏิทินเวรของฉันรอบนี้' : 'ปฏิทินรอบสอบ: ต้องใช้พนักงานกี่คนในแต่ละช่วง';
+  document.getElementById('calLegend').innerHTML = mine
+    ? `<span><i class="sw proctor"></i>${p.kind==='teacher'?'คุมวิชาตนเอง':'คุมสอบ'}</span>${p.kind==='staff'?'<span><i class="sw dist"></i>จ่ายข้อสอบ</span><span><i class="sw opener"></i>เปิดห้อง</span>':''}<span><i class="sw none"></i>มีสอบแต่ไม่มีเวรเรา</span>${unavBy[current]?'<span><i class="sw unav"></i>วันที่แจ้งไม่ว่าง</span>':''}`
+    : `<span class="ramp">น้อย ${[1,2,3,4,5,6].map(i=>`<i style="background:var(--s${i})"></i>`).join('')} มาก</span><span>ตัวเลข = จำนวนเวรพนักงานในช่วงนั้น</span>`;
+  let h = '<div></div>' + days.map(d => { const o=dObj(d); return `<div class="ch${isWE(d)?' we':''}">${TH_DOW[o.getDay()]}<b>${o.getDate()}</b>${o.getDate()===1||d===days[0]?TH_MON[o.getMonth()]:''}</div>`; }).join('');
+  const counts = {};
+  staffDuties.forEach(d => { const k=d.date+'|'+d.p; counts[k]=(counts[k]||0)+1; });
+  const maxC = Math.max(...Object.values(counts));
+  const myD = mine ? (dutiesBy[current]||[]) : [];
+  PERIODS.forEach(per => {
+    h += `<div class="rh"><b>${per.name}</b>${per.p} · ${per.t}</div>`;
+    days.forEach(d => {
+      const key = d+'|'+per.p, has = examCells[key];
+      const we = isWE(d) ? ' we' : '';
+      const un = mine && unavBy[current]?.has(d) ? ' unav' : '';
+      if (!has){ h += `<div class="cell noexam${we}${un}"></div>`; return; }
+      if (mine){
+        const ds = myD.filter(x => x.date===d && x.p===per.p);
+        if (!ds.length){ h += `<div class="cell exam${we}${un}" data-tip="${esc(dayShort(d)+' '+per.name+' ('+has.join(', ')+')<br>มีสอบ แต่ไม่มีเวรของเรา')}"></div>`; return; }
+        const roles = [...new Set(ds.map(x => x.role==='own'?'proctor':x.role))];
+        const tipTxt = `<b>${dayShort(d)} · ${per.name}</b><br>` + ds.map(x => `${ROLE_NAME[x.role]} ${x.time}${x.room?' · ห้อง '+x.room:''}`).join('<br>');
+        h += `<div class="cell${we}${un}" data-tip="${esc(tipTxt)}">${roles.map(r => `<div class="bar ${r}">${ROLE_SHORT[r]}</div>`).join('')}</div>`;
+      } else {
+        const c = counts[key]||0;
+        const lvl = c ? Math.min(7, 1 + Math.round((c/maxC)*5)) : 0;
+        const ink = lvl >= 4 ? 'color:#fff' : '';
+        const rooms = has.reduce((n,t) => n + roomsAt(d,t).length, 0);
+        h += `<div class="cell heat${we}" style="background:${lvl?`var(--s${lvl})`:'var(--surface-2)'};${ink}" data-tip="${esc(`<b>${dayShort(d)} · ${per.name}</b><br>เวลา ${has.join(', ')}<br>${rooms} ห้อง · ใช้พนักงาน ${c} คน`)}">${c||''}</div>`;
+      }
+    });
+  });
+  cal.innerHTML = h;
+}
+
+// ---------- weekday x period heatmap ----------
+function renderHM(){
+  const hm = document.getElementById('hm'), row = document.getElementById('distRow');
+  const p = byId[current];
+  if (current !== 'all' && (p.kind === 'teacher' || !p.after)){ row.hidden = true; return; }
+  row.hidden = false;
+  let vals, adds, title, sub;
+  if (current === 'all'){
+    vals = Array(21).fill(0); adds = null;
+    staffDuties.forEach(d => { const i = STACK_DOW.indexOf(TH_DOW[dow(d.date)]); vals[i*3 + (+d.p[1]-1)]++; });
+    title = 'รอบนี้ เวรตกวันไหน ช่วงไหน';
+    sub = 'รวมเวรพนักงานทั้งหมดในรอบนี้ แยกตามวันในสัปดาห์และช่วงเวลา';
+  } else {
+    vals = p.after; adds = p.after.map((v,i) => v - (p.before?.[i]||0));
+    title = 'เวรสะสมของฉัน ตามวันในสัปดาห์';
+    sub = 'ตัวเลขใหญ่คือจำนวนครั้งสะสม (รอบก่อน ๆ + รอบนี้) ป้าย +n คือที่เพิ่มในรอบนี้ ระบบใช้ตัวเลขนี้เพื่อไม่ให้ใครได้ช่วงเดิมซ้ำ ๆ';
+  }
+  document.getElementById('hmTitle').textContent = title;
+  document.getElementById('hmSub').textContent = sub;
+  const max = Math.max(1, ...vals);
+  let h = '<div></div>' + STACK_DOW.map((d,i) => `<div class="ch${i>=5?' we':''}">${d}</div>`).join('');
+  PERIODS.forEach((per, pi) => {
+    h += `<div class="rh">${per.name}</div>`;
+    STACK_DOW.forEach((d, di) => {
+      const i = di*3 + pi, v = vals[i];
+      const lvl = v ? Math.min(7, 1 + Math.round((v/max)*6)) : 0;
+      const ink = lvl >= 4 ? '#fff' : 'var(--ink)';
+      const a = adds && adds[i] > 0 ? `<span class="plus">+${adds[i]}</span>` : '';
+      const t = adds ? `<b>${d} ${per.name}</b><br>สะสม ${v} ครั้ง${adds[i]>0?` (รอบนี้ +${adds[i]})`:''}` : `<b>${d} ${per.name}</b><br>${v} เวรในรอบนี้`;
+      h += `<div class="hcell" style="background:${lvl?`var(--s${lvl})`:'var(--empty)'};color:${ink}" data-tip="${esc(t)}">${v||'<span style="color:var(--ink-3);font-weight:400">·</span>'}${a}</div>`;
+    });
+  });
+  hm.innerHTML = h;
+  document.getElementById('ramp').innerHTML = `0 ${[1,2,3,4,5,6,7].map(i=>`<i style="background:var(--s${i})"></i>`).join('')} ${max} ครั้ง`;
+
+  // period mix
+  const teamP = {P1:0,P2:0,P3:0}; staffDuties.forEach(d => teamP[d.p]++);
+  const bar = (obj, label) => {
+    const tot = obj.P1+obj.P2+obj.P3 || 1;
+    return `<div class="mixrow"><span>${label}</span><div class="mixbar">${PERIODS.map(per => { const v=obj[per.p]; const pc=Math.round(v/tot*100); return v?`<span class="${per.p}" style="flex:${v}" data-tip="${esc(`${label} · ${per.name}: ${v} เวร (${pc}%)`)}">${pc>=12?pc+'%':''}</span>`:''; }).join('')}</div></div>`;
+  };
+  const leg = `<div class="legend">${PERIODS.map(per=>`<span><i class="sw ${per.p}"></i>${per.name} (${per.p})</span>`).join('')}</div>`;
+  const mix = document.getElementById('mix');
+  if (current === 'all'){
+    mix.innerHTML = leg + bar(teamP, 'ทั้งรอบ') + `<p class="insight">งานรอบนี้ส่วนใหญ่อยู่ช่วง${PERIODS.reduce((a,b)=>teamP[a.p]>=teamP[b.p]?a:b).name} ถ้าเวรของใครตกช่วงนี้มาก ถือว่าปกติตามสัดส่วนงาน</p>`;
+    return;
+  }
+  const me = {P1:0,P2:0,P3:0}; (dutiesBy[current]||[]).forEach(d => me[d.p]++);
+  const myTot = me.P1+me.P2+me.P3;
+  let insight = '';
+  if (!myTot) insight = 'รอบนี้ไม่มีเวร';
+  else {
+    const teamTot = teamP.P1+teamP.P2+teamP.P3;
+    const gaps = PERIODS.map(per => ({per, d: me[per.p]/myTot - teamP[per.p]/teamTot}));
+    const top = gaps.reduce((a,b) => b.d > a.d ? b : a);
+    insight = top.d > 0.2
+      ? `เวรของเราตกช่วง<b>${top.per.name}</b>มากกว่าสัดส่วนงานทั้งรอบ ${Math.round(top.d*100)} จุด`
+      : 'สัดส่วนช่วงเวลาของเราใกล้เคียงกับงานทั้งรอบ ไม่ได้กระจุกช่วงใดช่วงหนึ่ง';
+  }
+  mix.innerHTML = leg + bar(me, 'ของฉัน') + bar(teamP, 'ทั้งรอบ') + `<p class="insight">${insight}</p>`;
+}
+
+// ---------- tables ----------
+function namesHtml(list, meName){
+  return list.filter(Boolean).map(n => n === meName ? `<span class="mine">${esc(firstName(n))}</span>` : esc(firstName(n))).join(', ') || '—';
+}
+function courseHtml(entries){
+  return entries.map(e => `<div class="course"><b>${esc(e.code)}</b> ตอน ${esc(e.sec)}<span class="cn">${esc(e.name)}</span></div>`).join('');
+}
+function renderMyTable(){
+  const el = document.getElementById('tbl');
+  const p = byId[current];
+  document.getElementById('tblTitle').textContent = 'ตารางคุมสอบของฉัน';
+  const ds = dutiesBy[current] || [];
+  const helpRooms = Object.values(DATA.rooms).flat().filter(r => r.distHelp === p.name);
+  if (!ds.length){ el.innerHTML = `<div class="empty-note">${p.note ? esc(p.note) : 'รอบนี้ไม่มีเวรสอบ'}</div>`; return; }
+  let h = '<table class="cards"><thead><tr><th>วัน</th><th>เวลา</th><th>หน้าที่</th><th>วิชา / ตอน</th><th>ห้อง</th><th class="num">นศ.</th><th>อยู่ด้วยกัน</th></tr></thead><tbody>';
+  let lastDate = '';
+  ds.forEach(d => {
+    const we = isWE(d.date) ? ' we' : '';
+    if (d.date !== lastDate){ h += `<tr class="dayhead${we}"><td colspan="7">${dayLong(d.date)}</td></tr>`; lastDate = d.date; }
+    let course='', room='', n='', ppl='', time=d.time;
+    if (d.role === 'proctor' || d.role === 'own'){
+      const es = DATA.rooms[`${d.date}|${d.time}|${d.room}`] || [];
+      course = courseHtml(es); room = `<span class="mono">${esc(d.room)}</span>`;
+      n = es.reduce((a,e) => a + (e.n||0), 0);
+      const inRoom = peopleAtRoom(d.date, d.time, d.room).map(x => byId[x.pid].name);
+      es.forEach(e => { if (e.distHelp) inRoom.push(e.distHelp); });
+      const others = [...new Set(inRoom)].filter(x => x !== p.name);
+      const dist = slotPeople(d.date, d.time, 'dist').map(x=>x.name);
+      ppl = `คุมด้วยกัน: ${namesHtml(others)}<br>จ่ายข้อสอบ: ${namesHtml(dist)}`;
+    } else if (d.role === 'dist'){
+      const rs = roomsAt(d.date, d.time).flat();
+      const help = helpRooms.filter(r => rs.includes(r));
+      course = `<div class="course">ส่งข้อสอบ ${new Set(rs.map(r=>r.room)).size} ห้อง<span class="cn">วิชา ${esc([...new Set(rs.map(r=>r.code))].join(', '))}</span></div>`;
+      room = `<span class="mono">${esc([...new Set(rs.map(r=>r.room))].join(', '))}</span>`;
+      n = rs.reduce((a,e)=>a+(e.n||0),0);
+      ppl = (help.length ? `<b>ช่วยคุมห้อง ${esc(help.map(r=>r.room).join(', '))}</b> กับ ${namesHtml(help.map(r=>r.teacher))}<br>` : '') +
+            `เปิดห้อง: ${namesHtml(dayOpener(d.date).map(x=>x.name))}`;
+    } else if (d.role === 'opener'){
+      const dayRooms = Object.entries(DATA.rooms).filter(([k]) => k.startsWith(d.date+'|')).map(([,v])=>v[0]);
+      const times = [...new Set(DATA.slots.filter(s=>s.date===d.date).map(s=>s.time))];
+      time = `เริ่ม ${d.time.slice(0,5)}<span class="cn small muted" style="display:block">ทั้งวัน: ${times.join(', ')}</span>`;
+      course = `<div class="course">เปิดห้องสอบทั้งวัน<span class="cn">${new Set(dayRooms.map(r=>r.room)).size} ห้อง</span></div>`;
+      room = `<span class="mono">${esc([...new Set(dayRooms.map(r=>r.room))].join(', '))}</span>`;
+      const dist = [...new Set(DATA.duties.filter(x=>x.date===d.date&&x.role==='dist').map(x=>byId[x.pid].name))];
+      ppl = `จ่ายข้อสอบวันนี้: ${namesHtml(dist)}`;
+    }
+    h += `<tr><td data-l="วัน">${dayShort(d.date)}</td><td data-l="เวลา" class="num">${time}</td><td data-l="หน้าที่"><span class="role ${d.role}">${ROLE_NAME[d.role]}</span></td><td data-l="วิชา">${course}</td><td data-l="ห้อง">${room}</td><td data-l="นศ." class="num">${n||''}</td><td data-l="" class="ppl">${ppl}</td></tr>`;
+  });
+  el.innerHTML = h + '</tbody></table>';
+}
+function renderTeamTable(){
+  const el = document.getElementById('tbl');
+  document.getElementById('tblTitle').textContent = 'ตารางคุมสอบทั้งรอบ';
+  const entries = Object.entries(DATA.rooms).map(([k,v]) => { const [date,time,room] = k.split('|'); return {date,time,room,es:v}; })
+    .sort((a,b) => (a.date+a.time+a.es[0].code+a.es[0].sec).localeCompare(b.date+b.time+b.es[0].code+b.es[0].sec));
+  let h = '<table class="cards"><thead><tr><th>เวลา</th><th>วิชา / ตอน</th><th>ห้อง</th><th class="num">นศ.</th><th>ผู้คุมสอบ</th><th>จ่ายข้อสอบ · เปิดห้อง</th></tr></thead><tbody>';
+  let last='';
+  entries.forEach(r => {
+    if (r.date !== last){ h += `<tr class="dayhead${isWE(r.date)?' we':''}"><td colspan="6">${dayLong(r.date)}</td></tr>`; last = r.date; }
+    const inRoom = peopleAtRoom(r.date, r.time, r.room).map(x => byId[x.pid]);
+    const t = inRoom.filter(x => x.kind==='teacher').map(x=>x.name);
+    const s = inRoom.filter(x => x.kind==='staff').map(x=>x.name);
+    r.es.forEach(e => { if (e.distHelp) s.push(e.distHelp); });
+    const short = r.es.some(e => e.need > 0) && !t.length && !s.length;
+    const dist = slotPeople(r.date, r.time, 'dist').map(x=>x.name);
+    h += `<tr><td data-l="เวลา" class="num">${r.time}</td><td data-l="วิชา">${courseHtml(r.es)}</td><td data-l="ห้อง" class="mono">${esc(r.room)}</td><td data-l="นศ." class="num">${r.es.reduce((a,e)=>a+(e.n||0),0)}</td>
+      <td data-l="ผู้คุม" class="ppl">${short?'<span class="warn" style="padding:1px 6px">ยังขาดคนคุม</span>':''}${t.map(x=>esc(x)).join(', ')}${t.length&&s.length?' – ':''}${namesHtml([...new Set(s)])}</td>
+      <td data-l="จ่าย · เปิด" class="ppl">${namesHtml(dist)} · ${namesHtml(dayOpener(r.date).map(x=>x.name))}</td></tr>`;
+  });
+  el.innerHTML = h + '</tbody></table>';
+}
+
+// ---------- load chart ----------
+function renderLoad(){
+  const el = document.getElementById('load');
+  const rows = staff.map(p => ({p, st: personStats(p.id)})).filter(r => r.st.total > 0)
+    .sort((a,b) => b.st.total - a.st.total || shortName(a.p).localeCompare(shortName(b.p),'th'));
+  const max = Math.max(...rows.map(r => r.st.total));
+  const ticks = Array.from({length:max+1},(_,i)=>i);
+  el.classList.toggle('focus', current !== 'all' && byId[current].kind === 'staff');
+  el.innerHTML = rows.map(({p, st}) => {
+    const b = st.byRole;
+    const seg = ['proctor','dist','opener'].filter(r => b[r]).map(r => `<span class="${r}" style="width:calc(${b[r]/max*100}% - 2px)" data-tip="${esc(`${shortName(p)}<br>${ROLE_NAME[r]} ${b[r]} เวร`)}"></span>`).join('');
+    const unav = unavBy[p.id] ? ' ·' : '';
+    return `<button type="button" class="lrow${p.id===current?' sel':''}" data-id="${p.id}"><span class="ln">${esc(shortName(p))}</span><span class="lb">${seg}</span><span class="lv">${st.total}</span></button>`;
+  }).join('') + `<div class="axis"><span></span><span class="ticks">${ticks.map(t=>`<span style="left:${t/max*100}%">${t}</span>`).join('')}</span><span></span></div>` +
+  `<p class="small muted" style="margin:6px 0 0">ค่ากลางทีม ${teamMedian} เวร/คน · เพดานพื้นฐาน ${DATA.summary.cap} เวร (ผู้เปิดห้องนับวันละ 1 เวร จึงอาจเกินเพดาน)</p>`;
+  el.querySelectorAll('.lrow').forEach(b => b.addEventListener('click', () => { select(b.dataset.id); document.getElementById('whoPanel').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'start'}); }));
+  document.getElementById('loadPanel').hidden = false;
+}
+
+function renderWarnings(){
+  const el = document.getElementById('warnings');
+  const probs = DATA.problems.map(t => t.replace(/\(1\/2569-FINAL\|(\d+)\|(\d+)\|\d+\)/, 'วิชา $1 ตอน $2'));
+  const list = current === 'all' ? probs : [];
+  el.innerHTML = list.length ? `<div class="warn"><b>ยังต้องหาคนเพิ่ม:</b> ${list.map(esc).join(' · ')}</div>` : '';
+}
+
+function render(){
+  renderWho(); renderWarnings(); renderCal(); renderHM();
+  current === 'all' ? renderTeamTable() : renderMyTable();
+  renderLoad();
+}
+
+document.getElementById('roundLabel').textContent = `รอบ ${DATA.round} · สอบ ${dayShort(DATA.days[0])} – ${dayShort(DATA.days.at(-1))} ${dObj(DATA.days.at(-1)).getFullYear()+543}`;
+document.getElementById('foot').innerHTML = `<span>ข้อมูลจากผลพรีวิวระบบจัดเวร (${esc(DATA.round)}) ยังไม่ได้ตัดวันลาของทุกคน และยังไม่มีการยืนยันตาราง หากพบว่าชนกับธุระจำเป็น แจ้งผู้ดูแลตารางก่อนประกาศจริง</span><span>เวรสะสมนับจากรอบ 2/2568 ปลายภาค และ 1/2569 กลางภาค รวมกับรอบนี้ · อาจารย์ไม่มีข้อมูลเวรสะสม</span>`;
+
+buildPicker();
+let saved = 'all';
+try { saved = localStorage.getItem('exam-duty-who') || 'all'; } catch(e){}
+select(saved);
+</script>
