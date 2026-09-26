@@ -1,0 +1,344 @@
+<title>Gap กับ Supply ภาคกลาง–ตะวันออก–ตะวันตก</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#eef2f4; --paper:#ffffff; --paper-2:#f4f7f8; --line:#d9e1e5; --line-soft:#e7edf0;
+  --ink:#10202b; --ink-2:#44545f; --ink-3:#72808a;
+  --gap:#eb6834; --gap-soft:#fde9e0; --gap-ink:#a13d12;
+  --sup:#2a78d6; --sup-soft:#e1edfb; --sup-ink:#184f95;
+  --h0:#f1f4f6; --h1:#cde2fb; --h2:#9ec5f4; --h3:#6da7ec; --h4:#3987e5; --h5:#256abf; --h6:#184f95;
+  --note-bg:#fff6e5; --note-line:#efd29a; --note-ink:#7a5000;
+  --font-d:"Kanit","Sarabun",system-ui,sans-serif;
+  --font-b:"Sarabun","Noto Sans Thai",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0d1419; --paper:#152029; --paper-2:#1b2832; --line:#2a3945; --line-soft:#22303b;
+    --ink:#eef3f6; --ink-2:#b6c3cc; --ink-3:#8796a1;
+    --gap:#d95926; --gap-soft:#3a2319; --gap-ink:#f6a684;
+    --sup:#3987e5; --sup-soft:#172c45; --sup-ink:#9ec5f4;
+    --h0:#1b2832; --h1:#1a3452; --h2:#1c4a80; --h3:#1c5cab; --h4:#2a78d6; --h5:#5598e7; --h6:#9ec5f4;
+    --note-bg:#2b2213; --note-line:#5a4520; --note-ink:#f0cd8a;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0d1419; --paper:#152029; --paper-2:#1b2832; --line:#2a3945; --line-soft:#22303b;
+  --ink:#eef3f6; --ink-2:#b6c3cc; --ink-3:#8796a1;
+  --gap:#d95926; --gap-soft:#3a2319; --gap-ink:#f6a684;
+  --sup:#3987e5; --sup-soft:#172c45; --sup-ink:#9ec5f4;
+  --h0:#1b2832; --h1:#1a3452; --h2:#1c4a80; --h3:#1c5cab; --h4:#2a78d6; --h5:#5598e7; --h6:#9ec5f4;
+  --note-bg:#2b2213; --note-line:#5a4520; --note-ink:#f0cd8a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-b);font-size:16px;line-height:1.65}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px;padding-block:32px 64px;display:flex;flex-direction:column;gap:28px}
+@media (max-width:520px){.wrap{padding-inline:16px}}
+h1,h2,h3{font-family:var(--font-d);margin:0;line-height:1.25;text-wrap:balance;font-weight:600}
+h1{font-size:clamp(30px,5vw,48px);font-weight:700;letter-spacing:-.005em}
+h2{font-size:clamp(21px,2.6vw,26px)}
+h3{font-size:19px}
+p{margin:0}
+.eyebrow{font-family:var(--font-d);font-weight:500;font-size:13px;letter-spacing:.06em;color:var(--ink-3)}
+.muted{color:var(--ink-2)}
+.num{font-variant-numeric:tabular-nums}
+.gapw{color:var(--gap-ink);font-weight:700}
+.supw{color:var(--sup-ink);font-weight:700}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:28px;align-items:end}
+@media (max-width:860px){.hero{grid-template-columns:1fr}}
+.hero .lead{font-size:18px;color:var(--ink-2);max-width:56ch;margin-top:12px}
+.scale{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.scale .row{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-d)}
+.scale .big{font-size:56px;font-weight:700;line-height:1}
+.scale .big.g{color:var(--gap)} .scale .big.s{color:var(--sup)}
+.scale .lbl{font-size:14px;color:var(--ink-2);font-family:var(--font-b)}
+.ratio{display:flex;height:14px;border-radius:7px;overflow:hidden;gap:3px}
+.ratio i{display:block}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:640px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{border-top:3px solid var(--ink);padding-top:8px;display:flex;flex-direction:column}
+.kpi b{font-family:var(--font-d);font-size:34px;font-weight:700;line-height:1.1}
+.kpi span{font-size:14px;color:var(--ink-2)}
+
+/* panels */
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:16px;min-width:0}
+@media (max-width:520px){.panel{padding:16px}}
+.phead{display:flex;flex-direction:column;gap:6px}
+.phead p{color:var(--ink-2);max-width:70ch;font-size:15px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;color:var(--ink-2);align-items:center}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.sw.g{background:var(--gap)} .sw.s{background:var(--sup)}
+
+/* diverging */
+.div{display:flex;flex-direction:column;gap:10px}
+.drow{display:grid;grid-template-columns:minmax(0,1fr) minmax(150px,230px) minmax(0,1fr);gap:10px;align-items:center}
+.drow .l,.drow .r{display:flex;align-items:center;gap:8px;height:26px}
+.drow .l{justify-content:flex-end}
+.drow .bar{height:22px;border-radius:4px 0 0 4px;background:var(--gap);min-width:2px}
+.drow .r .bar{border-radius:0 4px 4px 0;background:var(--sup)}
+.drow .v{font-family:var(--font-d);font-weight:600;font-size:15px;min-width:22px;font-variant-numeric:tabular-nums}
+.drow .l .v{text-align:right;color:var(--gap-ink)} .drow .r .v{color:var(--sup-ink)}
+.drow .name{text-align:center;font-size:14.5px;line-height:1.35;font-weight:600}
+.drow .name small{display:block;font-weight:400;color:var(--ink-3);font-size:12.5px}
+.drow.hl .name{color:var(--gap-ink)}
+@media (max-width:640px){
+  .drow{grid-template-columns:1fr 1fr;row-gap:2px}
+  .drow .name{grid-column:1/-1;order:-1;text-align:left}
+}
+.callout{border-left:4px solid var(--gap);background:var(--gap-soft);padding:10px 14px;border-radius:0 10px 10px 0;font-size:15px}
+
+/* issue cards */
+.issues{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:860px){.issues{grid-template-columns:1fr}}
+.issue{background:var(--paper);border:1px solid var(--line);border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
+.issue header{padding:16px 18px 12px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid var(--line-soft)}
+.issue header .tag{font-family:var(--font-d);font-size:12.5px;color:var(--ink-3);letter-spacing:.04em}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:13px;font-weight:600;padding:1px 9px;border-radius:999px;background:var(--paper-2);color:var(--ink-2)}
+.chip.g{background:var(--gap-soft);color:var(--gap-ink)} .chip.s{background:var(--sup-soft);color:var(--sup-ink)}
+.cols{display:grid;grid-template-columns:1fr 1fr;flex:1}
+@media (max-width:560px){.cols{grid-template-columns:1fr}}
+.col{padding:14px 18px 18px;display:flex;flex-direction:column;gap:8px}
+.col + .col{border-left:1px solid var(--line-soft)}
+@media (max-width:560px){.col + .col{border-left:0;border-top:1px solid var(--line-soft)}}
+.col h4{margin:0;font-family:var(--font-d);font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px}
+.col.g h4{color:var(--gap-ink)} .col.s h4{color:var(--sup-ink)}
+.col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.col li{font-size:14.5px;line-height:1.5;padding-left:14px;position:relative}
+.col li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:2px}
+.col.g li::before{background:var(--gap)} .col.s li::before{background:var(--sup)}
+.who{font-size:12px;color:var(--ink-3);white-space:nowrap}
+.x{font-size:12px;font-weight:600;color:var(--ink-3)}
+
+/* heatmap */
+.scroll-x{overflow-x:auto}
+.hm{display:grid;grid-template-columns:minmax(150px,1.3fr) repeat(6,minmax(58px,1fr)) 54px;gap:3px;min-width:640px}
+.hm .ch{font-size:12.5px;color:var(--ink-2);text-align:center;line-height:1.3;padding:0 2px 6px;display:flex;align-items:flex-end;justify-content:center}
+.hm .rh{font-size:14px;display:flex;align-items:center;font-weight:600}
+.hm .c{height:38px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-weight:600;font-size:15px}
+.hm .t{display:flex;align-items:center;justify-content:flex-end;font-family:var(--font-d);font-weight:600;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.ramp{display:flex;gap:4px;align-items:center;font-size:12.5px;color:var(--ink-3)}
+.ramp i{width:20px;height:10px;border-radius:2px;display:inline-block}
+
+/* institutions */
+.inst{display:flex;flex-direction:column;gap:12px}
+.irow{display:grid;grid-template-columns:minmax(120px,190px) minmax(0,1fr) 40px;gap:12px;align-items:center}
+.irow .n{font-weight:600;font-size:15px;line-height:1.3}
+.irow .n small{display:block;font-weight:400;color:var(--ink-3);font-size:12.5px}
+.irow .b{display:flex;gap:2px;height:22px}
+.irow .b i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12.5px;font-weight:700;color:#fff}
+.irow .b i:first-child{border-radius:4px 0 0 4px} .irow .b i:last-child{border-radius:0 4px 4px 0} .irow .b i:only-child{border-radius:4px}
+.irow .b .g{background:var(--gap)} .irow .b .s{background:var(--sup)}
+.irow .t{font-family:var(--font-d);font-weight:600;text-align:right;color:var(--ink-2)}
+.irow.muted .b{opacity:.55}
+
+/* sheets table */
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{text-align:left;font-size:13px;color:var(--ink-2);font-weight:600;padding:8px 10px;border-bottom:1.5px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.st{display:inline-block;font-size:12.5px;font-weight:600;border-radius:999px;padding:0 8px;white-space:nowrap}
+.st.on{background:var(--sup-soft);color:var(--sup-ink)} .st.off{background:var(--paper-2);color:var(--ink-3)}
+.notes{background:var(--note-bg);border:1px solid var(--note-line);color:var(--note-ink);border-radius:12px;padding:14px 16px;font-size:14.5px}
+.notes ul{margin:6px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.insight{font-size:15px;background:var(--paper-2);border-radius:10px;padding:10px 14px}
+footer{font-size:13px;color:var(--ink-3)}
+</style>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">สรุปผลเวทีระดมความคิด · ภาคกลาง ตะวันออก ตะวันตก · 25 ก.ย. 2569 · 14:30–15:33 น.</p>
+      <h1>พื้นที่ขาดอะไร และมหาวิทยาลัยมีอะไรให้</h1>
+      <p class="lead">ผู้แทน 4 มหาวิทยาลัยร่วมกันเขียนลง Idea Board ทีละประเด็นยุทธศาสตร์ แยกเป็น <span class="gapw">Gap</span> คือช่องว่างหรือปัญหาของพื้นที่ และ <span class="supw">Supply</span> คือองค์ความรู้ เครื่องมือ หรือบริการที่มหาวิทยาลัยพร้อมนำไปใช้</p>
+    </div>
+    <div class="scale" role="img" aria-label="Gap 72 ข้อ Supply 38 ข้อ">
+      <div class="row"><span><span class="big g num">72</span><br><span class="lbl">Gap ช่องว่างของพื้นที่</span></span><span style="text-align:right"><span class="big s num">38</span><br><span class="lbl">Supply ที่มหาวิทยาลัยเสนอ</span></span></div>
+      <div class="ratio"><i style="flex:72;background:var(--gap)"></i><i style="flex:38;background:var(--sup)"></i></div>
+      <p class="lbl">ทุก 2 ช่องว่าง มีข้อเสนอจากมหาวิทยาลัยราว 1 ข้อ (สัดส่วน 1.9 : 1)</p>
+    </div>
+  </section>
+
+  <div class="kpis">
+    <div class="kpi"><b class="num">11</b><span>ผู้เข้าร่วมที่ลงความเห็น (ไม่นับทีมจัด)</span></div>
+    <div class="kpi"><b class="num">4</b><span>มหาวิทยาลัย จาก 5 จังหวัด</span></div>
+    <div class="kpi"><b class="num">110</b><span>ความเห็นทั้งหมด (รวมที่ทีมจัดตั้งต้นไว้ 15 ข้อ)</span></div>
+    <div class="kpi"><b class="num">6</b><span>ประเด็นยุทธศาสตร์ที่มีคำตอบ</span></div>
+  </div>
+
+  <section class="panel">
+    <div class="phead">
+      <h2>ประเด็นไหนช่องว่างมาก แต่ข้อเสนอยังน้อย</h2>
+      <p>จำนวนความเห็นในแต่ละประเด็น ด้านซ้ายคือ Gap ด้านขวาคือ Supply ตัวเลขใต้ชื่อประเด็นคือจำนวนผู้เข้าร่วมที่ตอบ (ไม่นับทีมจัด) แต่จำนวนความเห็นรวมข้อที่ทีมจัดตั้งต้นไว้ด้วย</p>
+    </div>
+    <div class="legend"><span><i class="sw g"></i>Gap ช่องว่างของพื้นที่</span><span><i class="sw s"></i>Supply ที่มหาวิทยาลัยเสนอ</span></div>
+    <div class="div" id="div"></div>
+    <p class="callout"><b>เกษตรดิจิทัลเป็นจุดที่ช่องว่างสูงสุด</b> มี Gap 18 ข้อ แต่ Supply เพียง 4 ข้อ ปัญหาหลักอยู่นอกห้องแล็บ ได้แก่ กฎระเบียบของรัฐ การขยายผลระดับ pilot กับเอกชน ตลาดกลาง และโลจิสติกส์ ส่วนเรื่องคาร์บอนต่ำมีจำนวน Gap กับ Supply เท่ากันพอดี (9 : 9) และเป็นประเด็นที่มีผู้เข้าร่วมตอบมากที่สุด (10 คน)</p>
+  </section>
+
+  <section class="phead">
+    <h2>สรุปรายประเด็น</h2>
+    <p>เรียบเรียงจากความเห็นทั้ง 110 ข้อ โดยรวมข้อที่พูดถึงเรื่องเดียวกันไว้ด้วยกัน ตัวเลข ×n คือจำนวนความเห็นที่พูดถึงเรื่องเดียวกัน</p>
+  </section>
+  <div class="issues" id="issues"></div>
+
+  <section class="panel">
+    <div class="phead">
+      <h2>เรื่องที่พูดถึงข้ามหลายประเด็น</h2>
+      <p>นับจำนวนความเห็นที่มีคำสำคัญของแต่ละเรื่อง เช่น “สมุนไพร” “สกัด” “คาร์บอน” “ขยะ” หนึ่งความเห็นอาจนับได้หลายเรื่อง ช่องที่สีเข้มคือพูดถึงบ่อย</p>
+    </div>
+    <div class="scroll-x"><div class="hm" id="hm"></div></div>
+    <div class="ramp">น้อย <i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><i style="background:var(--h4)"></i><i style="background:var(--h5)"></i><i style="background:var(--h6)"></i> มาก</div>
+    <div class="two">
+      <p class="insight"><b>สมุนไพรและสารสกัด</b> ปรากฏใน 5 จาก 6 ประเด็น ตั้งแต่ท่องเที่ยวเชิงสุขภาพ อุตสาหกรรม Zero Waste ไปจนถึงเกษตรต้นน้ำ เป็นจุดร่วมที่ มศว และมหิดลมีทั้งเครื่องมือระดับ pilot และองค์ความรู้</p>
+      <p class="insight"><b>ผักตบชวา</b> ถูกยกขึ้นมาใน 3 ประเด็น (อุตสาหกรรม เกษตร สิ่งแวดล้อม) ว่าไหลจากนครสวรรค์ถึงสมุทรสาครและกระทบการเดินเรือหลายจังหวัด มีข้อเสนอเรือ Smart Boat เก็บผักตบไปทำกระดาษ ผ้า ถ่าน</p>
+    </div>
+  </section>
+
+  <div class="two">
+    <section class="panel">
+      <div class="phead">
+        <h2>ใครเสนออะไร</h2>
+        <p>จำนวนความเห็นแยกตามมหาวิทยาลัย</p>
+      </div>
+      <div class="legend"><span><i class="sw g"></i>Gap</span><span><i class="sw s"></i>Supply</span></div>
+      <div class="inst" id="inst"></div>
+      <p class="insight">มทร.พระนคร ส่งแต่ Gap (16 ข้อ) ไม่มี Supply เลย ถ้าต้องจับคู่ปัญหากับศักยภาพ ควรชวนกลับมาเติมฝั่งศักยภาพของตัวเอง</p>
+    </section>
+    <section class="panel">
+      <div class="phead">
+        <h2>ข้อมูลในไฟล์ทั้ง 10 ชีต</h2>
+        <p>มีข้อมูล 6 ชีต (ชีตสุดท้ายเป็นข้อมูลรวมของชีตอื่น) อีก 4 ชีตว่าง</p>
+      </div>
+      <table>
+        <thead><tr><th>ชีต</th><th>สถานะ</th><th>มีอะไร</th></tr></thead>
+        <tbody id="sheets"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <div class="notes">
+    <b>ข้อควรรู้ก่อนนำไปใช้</b>
+    <ul>
+      <li>ไม่มีใครกดโหวตเลย (คะแนนโหวตเป็น 0 ทุกข้อ แม้ตั้งไว้ให้โหวตได้คนละ 3 ครั้ง) การจัดลำดับความสำคัญในหน้านี้จึงมาจากจำนวนครั้งที่ถูกพูดถึง ไม่ใช่จากการโหวต</li>
+      <li>15 ข้อเป็น Gap ที่ทีมจัดใส่ไว้ตั้งต้นก่อนเริ่มเวที (ชื่อผู้ตอบ “All STeP”) รวมอยู่ในตัวเลข Gap 72 ข้อ ถ้าตัดออก Gap จากผู้เข้าร่วมจริงคือ 57 ข้อ</li>
+      <li>ผู้ร่วมมาจาก กทม. สมุทรปราการ นครปฐม กาญจนบุรี และนครนายก ยังไม่มีผู้แทนจากจังหวัดชายฝั่งตะวันออก เช่น ชลบุรี ระยอง</li>
+      <li>สไลด์ “ประเด็นอื่นๆ ที่ควรได้รับการพัฒนา/แก้ไข” ไม่มีคำตอบ และมีผู้เข้าห้อง 1 คนที่ไม่ได้ระบุชื่อและไม่ได้ตอบ</li>
+    </ul>
+  </div>
+
+  <footer>ที่มา: ไฟล์ส่งออกผลเวที “ภาคกลาง ตะวันออก ตะวันตก” ชีต Opinion Answers, Participants, Slide Details, Reactions, Private Feedback · เวลาแปลงจาก UTC เป็นเวลาไทย · หน้านี้ไม่แสดงชื่อบุคคล</footer>
+</div>
+
+<script>
+const ISSUES = [
+  {id:2, short:'ท่องเที่ยวคุณค่าสูง', title:'ยกระดับมาตรฐานการท่องเที่ยวที่เน้นคุณค่าและมูลค่าสูงอย่างยั่งยืน', gap:14, sup:7, ppl:9,
+   gaps:[['ยังไม่เชื่อมบริการสุขภาพ สมุนไพร และอาหาร เข้ากับการท่องเที่ยว (Wellness/Gastronomy)',4],['ผู้ประกอบการและวิสาหกิจชุมชนยังขาดมาตรฐานบริการ',4],['นักท่องเที่ยวกระจุกตัว ยังไม่กระจายสู่เมืองรอง พื้นที่รอบนอก และย่านวัฒนธรรม',3],['การเดินทางยังไม่เชื่อมเส้นทางท่องเที่ยว และไม่เอื้อผู้สูงอายุหรือผู้พิการ',3],['ภูมิปัญญาสมุนไพร (กรมหลวงชุมพรฯ) และผลิตภัณฑ์ยายังไม่ได้มาตรฐาน',3]],
+   sups:[['เส้นทางท่องเที่ยวสุขภาวะ นครนายก เชื่อมมะยงชิด GI พร้อมอบรมมาตรฐานบริการ และ SWU Marketing Clinic','มศว'],['Creative & Wellness Urban Tourism ย่านเขตวัฒนา','มศว'],['แผนท่องเที่ยวย่านวังเดิม, วิเคราะห์ supply chain ท่องเที่ยว, ทุนวัฒนธรรมสู่เทศกาลและผลิตภัณฑ์','มรภ.ธนบุรี'],['โรงงานยามีชีวิต','มหิดล'],['IP เครื่องมือดูแลสุขภาพ และเทคโนโลยีเสมือนจริง (VR)','มศว']]},
+  {id:3, short:'อุตสาหกรรมอัจฉริยะ', title:'ยกระดับสู่ฐานอุตสาหกรรมอัจฉริยะ มูลค่าสูง เป็นมิตรกับสิ่งแวดล้อม', gap:12, sup:9, ppl:9,
+   gaps:[['ยังพึ่งแรงงานต่างด้าวและค่าแรงต่ำ ใช้ระบบอัตโนมัติน้อย และขาดการพัฒนาทักษะแรงงานที่เป็นระบบ',2],['แปรรูปผลไม้ สมุนไพร และวัตถุดิบเกษตร (เช่น มันสำปะหลัง) ยังไม่ใช้ของเหลือแบบ Zero Waste หรือสร้างมูลค่าเชิงพาณิชย์',3],['กระบวนการผลิตสีเขียวยังไม่ทั่วถึง และยังไม่มีมาตรฐาน Green Hotel ที่เชื่อมผลิตภัณฑ์ในพื้นที่',3],['การผลิตในชุมชนยังขาดการควบคุมคุณภาพ และนวัตกรรมยังไม่ตรงกับการใช้งานจริง',1],['ปัญหาผักตบชวา มีแนวคิด Smart Boat เก็บผักตบไปแปรรูป',1]],
+   sups:[['หลักสูตร Reskill/Upskill และ Lifelong Learning สำหรับแรงงานและผู้ประกอบการ','มรภ.ธนบุรี · มศว'],['วิจัยเพิ่มมูลค่าแบบ Zero Waste พร้อมเครื่องมือควบคุมคุณภาพและสารตกค้าง','มศว'],['ที่ปรึกษา CFO / CFP / Green Hotel และความรู้จัดการดิน ปุ๋ย น้ำ ในมันสำปะหลัง','มหิดล'],['ประยุกต์ AI และ IoT ในการผลิต รวมถึงคำนวณคาร์บอนของกิจกรรม','มรภ.ธนบุรี'],['อโศกโมเดล ต้นแบบ Healthy & Green Urban Lifestyle','มศว']]},
+  {id:4, short:'อุตสาหกรรมคาร์บอนต่ำ', title:'ยกระดับอุตสาหกรรมเป้าหมายบนฐานคาร์บอนต่ำ', gap:9, sup:9, ppl:10,
+   gaps:[['ระบบวัด ติดตาม และประเมินคาร์บอนยังไม่ครอบคลุม SME และชุมชนยังขาดเครื่องมือที่ใช้ง่าย',3],['อุตสาหกรรมหลักยังใช้กระบวนการและพลังงานที่ปล่อยคาร์บอนสูง',3],['ยังไม่มีข้อมูลของเหลือทางเกษตรและการใช้พลังงานรายขั้นตอน จึงหาจุดลดคาร์บอนไม่ได้',2],['คนเมืองยังปรับพฤติกรรมการเดินทาง ขยะ และ PM2.5 ได้ยาก',1]],
+   sups:[['ความรู้และการอบรมคำนวณคาร์บอนฟุตพริ้นท์ มีหลักสูตรและผู้เชี่ยวชาญด้านอุตสาหกรรมคาร์บอนต่ำ','มหิดล · มรภ.ธนบุรี'],['อบรม Clean Technology และเศรษฐกิจหมุนเวียนให้ชุมชน รวมถึงนำของเหลือกลับมาใช้','มรภ.ธนบุรี'],['สกัดสารด้วย green solvent และต้นแบบโคกหนองนา low carbon จากเศษเหลือโรงงาน','มศว'],['นวัตกรรมขยะมีเสียงช่วยคนตาบอดแยกขยะ และแผนแม่บทขยะอาหารของประเทศ','มหิดล'],['Low Carbon Lifestyle: จักรยาน เส้นทางคาร์บอนต่ำ และ ECOLIFE','มศว']]},
+  {id:5, short:'เกษตรดิจิทัล', title:'ยกระดับการเกษตรสู่ยุคดิจิทัล สร้างมูลค่าเพิ่ม และยั่งยืน ที่ตรวจสอบย้อนกลับได้', gap:18, sup:4, ppl:6, hl:true,
+   gaps:[['กฎระเบียบของรัฐไม่ยืดหยุ่นต่อนวัตกรรม เช่น Positive list ของ อย. และการขึ้นทะเบียนสารสกัดระดับสากล',4],['เกษตรกรรายย่อยเข้าถึงทุน ทักษะ และช่องทางดิจิทัลได้จำกัด และขาดเกษตรกรรุ่นใหม่',4],['ขาดวินัยการบันทึกข้อมูล การตรวจสอบย้อนกลับ Contract Farming ที่เป็นธรรม และตัวกลางต่อรองกับอุตสาหกรรม',4],['เอกชนยังไม่ร่วมขยายผลระดับ pilot และขาดตลาดกลางที่ผู้บริโภคเชื่อถือ',2],['โลจิสติกส์และบรรจุภัณฑ์ เช่น มะม่วงน้ำดอกไม้ ปลาสลิด สมุทรปราการ',1]],
+   sups:[['โรงงาน semi-pilot / pilot scale พร้อม QC มาตรฐานการสกัดสาร','มศว · มหิดล'],['พัฒนา functional ingredient สำหรับเครื่องสำอาง อาหาร และอาหารสัตว์','มศว'],['พัฒนาเกษตรต้นน้ำเพื่อให้ได้สารสกัดคุณภาพสูง','มศว']]},
+  {id:6, short:'ทรัพยากรและสิ่งแวดล้อม', title:'บริหารจัดการทรัพยากรธรรมชาติและสิ่งแวดล้อมให้ยั่งยืน', gap:13, sup:4, ppl:9,
+   gaps:[['ขยะไม่ถูกคัดแยกตั้งแต่ต้นทาง ไม่ครบวงจร และมีขยะประเภทใหม่ (โซลาร์เซลล์ อิเล็กทรอนิกส์)',5],['ยังไม่มีระบบติดตามและจัดการ PM2.5 จากการจราจร โรงงาน และการเผา',3],['กลไกบริหาร การบังคับใช้กฎหมาย และนโยบายระดับพื้นที่ถึงระดับชาติยังไม่จริงจัง',3],['ผักตบชวาไหลข้ามจังหวัด กระทบการเดินเรือ',1],['เกษตรกรยังไม่เห็นผลตอบแทนที่ชัดเจนจากการดูแลสิ่งแวดล้อม',1]],
+   sups:[['จุลินทรีย์ย่อยฟางข้าวจาก BSF เพื่อลดการเผาและ PM2.5','มศว'],['Green & Low Carbon University ต้นแบบขยายสู่ชุมชนเมือง','มศว'],['ส่งเสริมโซลาร์เซลล์ การจัดการขยะ และข้อตกลงสาธารณะในพื้นที่','มรภ.ธนบุรี']]},
+  {id:7, short:'ทุนมนุษย์และสุขภาวะ', title:'ยกระดับทุนมนุษย์และเสริมสร้างสังคมแห่งสุขภาวะ', gap:6, sup:5, ppl:6,
+   gaps:[['ระบบการศึกษา ทักษะ และบริการสุขภาพยังไม่เชื่อมกัน และไม่ครอบคลุมทุกกลุ่ม',2],['ขาดบุคลากรดูแลระยะยาวสำหรับผู้สูงอายุที่มีภาวะพึ่งพิง',1],['คนเมืองขาดพื้นที่และโอกาสพัฒนาสุขภาวะองค์รวม กาย ใจ ปัญญา สังคม',1],['ชุมชนและหน่วยงานในพื้นที่ยังเข้าใจและขับเคลื่อนสุขภาวะได้ไม่ครบมิติ',1],['ส่งเสริมสุขภาพชุมชนด้วยสมุนไพรและภูมิปัญญาท้องถิ่น',1]],
+   sups:[['อโศกโมเดล พื้นที่เรียนรู้สุขภาวะองค์รวม เชื่อมนิสิต บุคลากร และชุมชน','มศว'],['หลักสูตรส่งเสริมสุขภาวะประชากรทุกกลุ่ม','มหิดล'],['ชุมชนเข้มแข็ง เครือข่ายอาสาสมัคร และใช้นโยบายสาธารณะขับเคลื่อน','มรภ.ธนบุรี']]},
+];
+const THEMES = [
+  ['สุขภาวะ / Wellness',{2:7,3:2,5:1,6:1,7:10}],
+  ['ชุมชน',{2:8,3:2,4:6,5:1,6:1,7:4}],
+  ['ดิจิทัล / เทคโนโลยี',{2:1,3:9,4:2,5:5,6:2}],
+  ['คาร์บอน',{3:2,4:13,6:2}],
+  ['ขยะ / ของเหลือใช้',{3:2,4:9,6:6}],
+  ['มาตรฐาน / กฎระเบียบ / นโยบาย',{2:5,3:1,5:6,6:3,7:1}],
+  ['สมุนไพร / สารสกัด',{2:5,3:2,4:3,5:4,7:1}],
+  ['ทักษะ / หลักสูตร',{2:2,3:5,4:2,5:1,7:3}],
+  ['PM2.5',{4:2,6:4}],
+  ['ผักตบชวา',{3:1,5:1,6:1}],
+];
+const INST = [
+  ['มหาวิทยาลัยศรีนครินทรวิโรฒ','มศว · 3 คน · กทม. นครนายก',20,16],
+  ['มหาวิทยาลัยราชภัฏธนบุรี','3 คน · กทม. สมุทรปราการ',10,13],
+  ['มหาวิทยาลัยมหิดล','3 คน · นครปฐม กาญจนบุรี',11,9],
+  ['มหาวิทยาลัยเทคโนโลยีราชมงคลพระนคร','มทร.พระนคร · 2 คน · กทม.',16,0],
+  ['ทีมจัด (ตั้งต้นไว้ก่อนเวที)','All STeP',15,0,true],
+];
+const SHEETS = [
+  ['Slide Details',1,'8 สไลด์: 1 หน้าเปิด, 6 ประเด็นยุทธศาสตร์, 1 ประเด็นอื่นๆ ทุกสไลด์แบ่งกลุ่มเป็น Gap และ Supply ให้โหวตได้คนละ 3 ครั้ง'],
+  ['Participants',1,'13 คน: ผู้เข้าร่วม 11 คนจาก 4 มหาวิทยาลัย, บัญชีทีมจัด 1 และผู้ไม่ระบุชื่อ 1 คน'],
+  ['Opinion Answers',1,'ความเห็น 110 ข้อ (Gap 72, Supply 38) ข้อมูลหลักของเวที'],
+  ['Reactions',1,'7 ครั้ง รวม 19 รีแอคชัน (หัวใจและไลก์) ส่วนใหญ่มาจากผู้เข้าร่วม 1 คน'],
+  ['Private Feedback',1,'1 คนให้คะแนน 5 เต็ม 5 ไม่มีความเห็นเพิ่ม'],
+  ['Raw Data (Pivot Source)',1,'รวมทุกชีตไว้ในตารางเดียว (119 แถว) ข้อมูลซ้ำกับชีตด้านบน'],
+  ['Quiz Answers',0,'ว่าง ไม่มีการใช้ควิซ'],
+  ['Q&A',0,'ว่าง ไม่มีคำถาม'],
+  ['Individual Leaderboard',0,'ว่าง'],
+  ['Team Leaderboard',0,'ว่าง'],
+];
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// diverging bars
+const maxN = Math.max(...ISSUES.map(i => Math.max(i.gap, i.sup)));
+document.getElementById('div').innerHTML = ISSUES.map(i => `
+  <div class="drow${i.hl?' hl':''}" role="img" aria-label="${esc(i.short)} Gap ${i.gap} Supply ${i.sup}">
+    <div class="l"><span class="v">${i.gap}</span><span class="bar" style="width:${i.gap/maxN*100}%"></span></div>
+    <div class="name">${esc(i.short)}<small>${i.ppl} คนร่วมตอบ</small></div>
+    <div class="r"><span class="bar" style="width:${i.sup/maxN*100}%"></span><span class="v">${i.sup}</span></div>
+  </div>`).join('');
+
+// issue cards
+document.getElementById('issues').innerHTML = ISSUES.map(i => `
+  <article class="issue">
+    <header>
+      <h3>${esc(i.short)}</h3>
+      <p class="muted" style="font-size:14px;line-height:1.45">${esc(i.title)}</p>
+      <div class="chips"><span class="chip g">Gap ${i.gap}</span><span class="chip s">Supply ${i.sup}</span><span class="chip">ผู้เข้าร่วมตอบ ${i.ppl} คน</span></div>
+    </header>
+    <div class="cols">
+      <div class="col g"><h4><i class="sw g"></i>ช่องว่างที่พบ</h4><ul>${i.gaps.map(([t,n]) => `<li>${esc(t)}${n>1?` <span class="x">×${n}</span>`:''}</li>`).join('')}</ul></div>
+      <div class="col s"><h4><i class="sw s"></i>มหาวิทยาลัยพร้อมให้</h4><ul>${i.sups.map(([t,w]) => `<li>${esc(t)} <span class="who">· ${esc(w)}</span></li>`).join('')}</ul></div>
+    </div>
+  </article>`).join('');
+
+// theme heatmap
+const hmMax = Math.max(...THEMES.flatMap(([,v]) => Object.values(v)));
+let h = '<div></div>' + ISSUES.map(i => `<div class="ch">${esc(i.short)}</div>`).join('') + '<div class="ch" style="justify-content:flex-end">รวม</div>';
+THEMES.forEach(([name, v]) => {
+  h += `<div class="rh">${esc(name)}</div>`;
+  ISSUES.forEach(i => {
+    const n = v[i.id] || 0;
+    const lvl = n ? Math.max(1, Math.ceil(n / hmMax * 6)) : 0;
+    h += `<div class="c" style="background:var(--h${lvl});color:${lvl>=4?'#fff':'var(--ink)'}" title="${esc(name)} · ${esc(i.short)}: ${n} ความเห็น">${n||''}</div>`;
+  });
+  h += `<div class="t">${Object.values(v).reduce((a,b)=>a+b,0)}</div>`;
+});
+document.getElementById('hm').innerHTML = h;
+
+// institutions
+const iMax = Math.max(...INST.map(r => r[2] + r[3]));
+document.getElementById('inst').innerHTML = INST.map(([n, sub, g, s, m]) => `
+  <div class="irow${m?' muted':''}">
+    <div class="n">${esc(n)}<small>${esc(sub)}</small></div>
+    <div class="b" style="width:${(g+s)/iMax*100}%">${g?`<i class="g" style="flex:${g}">${g}</i>`:''}${s?`<i class="s" style="flex:${s}">${s}</i>`:''}</div>
+    <div class="t num">${g+s}</div>
+  </div>`).join('');
+
+// sheets
+document.getElementById('sheets').innerHTML = SHEETS.map(([n, on, d]) =>
+  `<tr><td><b>${esc(n)}</b></td><td><span class="st ${on?'on':'off'}">${on?'มีข้อมูล':'ว่าง'}</span></td><td>${esc(d)}</td></tr>`).join('');
+</script>
