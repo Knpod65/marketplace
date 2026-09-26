@@ -137,18 +137,9 @@ p{margin:0}
 .irow .t{font-family:var(--font-d);font-weight:600;text-align:right;color:var(--ink-2)}
 .irow.muted .b{opacity:.55}
 
-/* sheets table */
-table{width:100%;border-collapse:collapse;font-size:14.5px}
-th{text-align:left;font-size:13px;color:var(--ink-2);font-weight:600;padding:8px 10px;border-bottom:1.5px solid var(--line)}
-td{padding:9px 10px;border-bottom:1px solid var(--line-soft);vertical-align:top}
-.st{display:inline-block;font-size:12.5px;font-weight:600;border-radius:999px;padding:0 8px;white-space:nowrap}
-.st.on{background:var(--sup-soft);color:var(--sup-ink)} .st.off{background:var(--paper-2);color:var(--ink-3)}
-.notes{background:var(--note-bg);border:1px solid var(--note-line);color:var(--note-ink);border-radius:12px;padding:14px 16px;font-size:14.5px}
-.notes ul{margin:6px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
 .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
 @media (max-width:860px){.two{grid-template-columns:1fr}}
 .insight{font-size:15px;background:var(--paper-2);border-radius:10px;padding:10px 14px}
-footer{font-size:13px;color:var(--ink-3)}
 </style>
 
 <div class="wrap">
@@ -202,7 +193,7 @@ footer{font-size:13px;color:var(--ink-3)}
     </div>
   </section>
 
-  <div class="two">
+  <div>
     <section class="panel">
       <div class="phead">
         <h2>ใครเสนออะไร</h2>
@@ -212,29 +203,9 @@ footer{font-size:13px;color:var(--ink-3)}
       <div class="inst" id="inst"></div>
       <p class="insight">มทร.พระนคร ส่งแต่ Gap (16 ข้อ) ไม่มี Supply เลย ถ้าต้องจับคู่ปัญหากับศักยภาพ ควรชวนกลับมาเติมฝั่งศักยภาพของตัวเอง</p>
     </section>
-    <section class="panel">
-      <div class="phead">
-        <h2>ข้อมูลในไฟล์ทั้ง 10 ชีต</h2>
-        <p>มีข้อมูล 6 ชีต (ชีตสุดท้ายเป็นข้อมูลรวมของชีตอื่น) อีก 4 ชีตว่าง</p>
-      </div>
-      <table>
-        <thead><tr><th>ชีต</th><th>สถานะ</th><th>มีอะไร</th></tr></thead>
-        <tbody id="sheets"></tbody>
-      </table>
-    </section>
   </div>
 
-  <div class="notes">
-    <b>ข้อควรรู้ก่อนนำไปใช้</b>
-    <ul>
-      <li>ไม่มีใครกดโหวตเลย (คะแนนโหวตเป็น 0 ทุกข้อ แม้ตั้งไว้ให้โหวตได้คนละ 3 ครั้ง) การจัดลำดับความสำคัญในหน้านี้จึงมาจากจำนวนครั้งที่ถูกพูดถึง ไม่ใช่จากการโหวต</li>
-      <li>15 ข้อเป็น Gap ที่ทีมจัดใส่ไว้ตั้งต้นก่อนเริ่มเวที (ชื่อผู้ตอบ “All STeP”) รวมอยู่ในตัวเลข Gap 72 ข้อ ถ้าตัดออก Gap จากผู้เข้าร่วมจริงคือ 57 ข้อ</li>
-      <li>ผู้ร่วมมาจาก กทม. สมุทรปราการ นครปฐม กาญจนบุรี และนครนายก ยังไม่มีผู้แทนจากจังหวัดชายฝั่งตะวันออก เช่น ชลบุรี ระยอง</li>
-      <li>สไลด์ “ประเด็นอื่นๆ ที่ควรได้รับการพัฒนา/แก้ไข” ไม่มีคำตอบ และมีผู้เข้าห้อง 1 คนที่ไม่ได้ระบุชื่อและไม่ได้ตอบ</li>
-    </ul>
-  </div>
 
-  <footer>ที่มา: ไฟล์ส่งออกผลเวที “ภาคกลาง ตะวันออก ตะวันตก” ชีต Opinion Answers, Participants, Slide Details, Reactions, Private Feedback · เวลาแปลงจาก UTC เป็นเวลาไทย · หน้านี้ไม่แสดงชื่อบุคคล</footer>
 </div>
 
 <script>
@@ -276,18 +247,6 @@ const INST = [
   ['มหาวิทยาลัยมหิดล','3 คน · นครปฐม กาญจนบุรี',11,9],
   ['มหาวิทยาลัยเทคโนโลยีราชมงคลพระนคร','มทร.พระนคร · 2 คน · กทม.',16,0],
   ['ทีมจัด (ตั้งต้นไว้ก่อนเวที)','All STeP',15,0,true],
-];
-const SHEETS = [
-  ['Slide Details',1,'8 สไลด์: 1 หน้าเปิด, 6 ประเด็นยุทธศาสตร์, 1 ประเด็นอื่นๆ ทุกสไลด์แบ่งกลุ่มเป็น Gap และ Supply ให้โหวตได้คนละ 3 ครั้ง'],
-  ['Participants',1,'13 คน: ผู้เข้าร่วม 11 คนจาก 4 มหาวิทยาลัย, บัญชีทีมจัด 1 และผู้ไม่ระบุชื่อ 1 คน'],
-  ['Opinion Answers',1,'ความเห็น 110 ข้อ (Gap 72, Supply 38) ข้อมูลหลักของเวที'],
-  ['Reactions',1,'7 ครั้ง รวม 19 รีแอคชัน (หัวใจและไลก์) ส่วนใหญ่มาจากผู้เข้าร่วม 1 คน'],
-  ['Private Feedback',1,'1 คนให้คะแนน 5 เต็ม 5 ไม่มีความเห็นเพิ่ม'],
-  ['Raw Data (Pivot Source)',1,'รวมทุกชีตไว้ในตารางเดียว (119 แถว) ข้อมูลซ้ำกับชีตด้านบน'],
-  ['Quiz Answers',0,'ว่าง ไม่มีการใช้ควิซ'],
-  ['Q&A',0,'ว่าง ไม่มีคำถาม'],
-  ['Individual Leaderboard',0,'ว่าง'],
-  ['Team Leaderboard',0,'ว่าง'],
 ];
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -338,7 +297,4 @@ document.getElementById('inst').innerHTML = INST.map(([n, sub, g, s, m]) => `
     <div class="t num">${g+s}</div>
   </div>`).join('');
 
-// sheets
-document.getElementById('sheets').innerHTML = SHEETS.map(([n, on, d]) =>
-  `<tr><td><b>${esc(n)}</b></td><td><span class="st ${on?'on':'off'}">${on?'มีข้อมูล':'ว่าง'}</span></td><td>${esc(d)}</td></tr>`).join('');
 </script>
