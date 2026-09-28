@@ -113,7 +113,10 @@ d0 = dt.date.fromisoformat(dates[0]); d1 = dt.date.fromisoformat(dates[-1])
 all_days = [(d0 + dt.timedelta(i)).isoformat() for i in range((d1 - d0).days + 1)]
 
 problems = [r[1] for r in rows('ปัญหา') if r[1]]
-unavail = [{'pid': r[0], 'date': r[2], 'reason': r[4]} for r in rows('วันไม่ว่าง-เวรระบบอื่น') if r[0]]
+# The sheet has a second table underneath (past duties in other exam systems) with a
+# different layout; keep only rows whose date column is a plain YYYY-MM-DD date.
+unavail = [{'pid': r[0], 'date': str(r[2]), 'reason': r[4]} for r in rows('วันไม่ว่าง-เวรระบบอื่น')
+           if r[0] and re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(r[2] or '')[:10]) and len(str(r[2])) <= 10]
 
 # emails are ids only; the page never renders them. Replace with opaque ids.
 id_map = {pid: f'p{i}' for i, pid in enumerate(sorted(people))}
