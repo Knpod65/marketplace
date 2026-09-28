@@ -724,8 +724,8 @@ function renderStatic(){
     ? `Final examinations · ${dayShort(DATA.days[0])} – ${dayShort(DATA.days.at(-1))} ${last.getFullYear()}`
     : `รอบ ${DATA.round} · สอบ ${dayShort(DATA.days[0])} – ${dayShort(DATA.days.at(-1))} ${last.getFullYear()+543}`;
   document.getElementById('foot').innerHTML = EN()
-    ? `<span>This roster is a draft and has not yet been confirmed. If an assignment conflicts with an essential commitment, please inform the roster administrator before the official announcement.</span><span>Cumulative duties include the 2/2025 final and 1/2026 midterm rounds plus this round. Cumulative data is not available for lecturers.</span>`
-    : `<span>ตารางนี้เป็นฉบับร่างและยังไม่ได้รับการยืนยัน หากเวรที่ได้รับมอบหมายตรงกับภารกิจที่จำเป็น โปรดแจ้งผู้ดูแลตารางก่อนการประกาศอย่างเป็นทางการ</span><span>เวรสะสมนับรวมรอบปลายภาค 2/2568 และกลางภาค 1/2569 กับรอบนี้ · ไม่มีข้อมูลเวรสะสมของอาจารย์</span>`;
+    ? `<span>This roster is a draft and has not yet been confirmed. If an assignment conflicts with an essential commitment, please inform the roster administrator before the official announcement.</span><span>Cumulative duties include the 2/2025 final, the 1/2026 midterm and the English midterm/final exams, plus this round.</span>`
+    : `<span>ตารางนี้เป็นฉบับร่างและยังไม่ได้รับการยืนยัน หากเวรที่ได้รับมอบหมายตรงกับภารกิจที่จำเป็น โปรดแจ้งผู้ดูแลตารางก่อนการประกาศอย่างเป็นทางการ</span><span>เวรสะสมนับรวมรอบปลายภาค 2/2568 กลางภาค 1/2569 และการคุมสอบภาษาอังกฤษ (กลางภาค/ปลายภาค) กับรอบนี้</span>`;
   buildPicker();
 }
 

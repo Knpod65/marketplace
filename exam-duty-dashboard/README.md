@@ -6,7 +6,7 @@
 
 ```bash
 pip install openpyxl
-python3 build_data.py "<ไฟล์ optimize ... .xlsx>" data.json
+python3 build_data.py "<ไฟล์ optimize ... .xlsx>" data.json "<ไฟล์สรุปเวรสะสม .xlsx>"   # ไฟล์ที่ 3 ไม่บังคับ
 python3 build_html.py data.json index.html
 python3 build_draft_xlsx.py data.json "ร่างตารางคุมสอบ_1-2569.xlsx"   # Excel ร่างตารางคุมสอบ แบบพิมพ์
 ```
@@ -15,4 +15,6 @@ python3 build_draft_xlsx.py data.json "ร่างตารางคุมส�
   อีเมลถูกแทนด้วยรหัสสุ่ม (`p0`, `p1`, ...) หน้าเว็บจึงไม่แสดงอีเมล
 - `template.html` คือหน้าแดชบอร์ด `build_html.py` ฝังข้อมูลลงไปได้เป็น `index.html` ไฟล์เดียว
 - `build_data.py` อ่านคอลัมน์ตามชื่อหัวตาราง ไม่ใช่ตามตำแหน่ง ถ้าไฟล์รอบใหม่เพิ่ม/ย้ายคอลัมน์ก็ยังอ่านถูก
+- ไฟล์ที่ 3 (สรุปข้อมูลเวรคุมสอบย้อนหลัง ตารางที่ 1-6 รายวัน x ช่วง) ใช้แทน base ("ก่อนรอบนี้") ของชีต `สแตครายวันต่อคน`
+  ส่วน "หลังรอบนี้" = base ใหม่ + จำนวนที่รอบนี้เพิ่ม จับคู่คนด้วยชื่อต้น (ตัดคำนำหน้า) แยกอาจารย์/พนักงาน
 - `data.json` ไม่ได้ commit ไว้ (สร้างใหม่ได้จาก Excel)

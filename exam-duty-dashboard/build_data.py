@@ -1,12 +1,17 @@
 """Extract exam-duty data from the optimizer workbook into data.json for the dashboard.
 
-Usage: python3 build_data.py <optimize_FINAL.xlsx> [out.json]
+Usage: python3 build_data.py <optimize_FINAL.xlsx> [out.json] [base_history.xlsx]
+
+base_history.xlsx (optional) is the per-person history summary (past rounds, by weekday x
+period). When given, it replaces the optimizer's "before" stacks; "after" becomes that base
+plus what this round adds.
 """
 import json, re, sys, datetime as dt
 import openpyxl
 
 src = sys.argv[1]
 out = sys.argv[2] if len(sys.argv) > 2 else 'data.json'
+base_src = sys.argv[3] if len(sys.argv) > 3 else None
 wb = openpyxl.load_workbook(src, data_only=True)
 
 def rows(sheet, start=2):
@@ -105,6 +110,37 @@ for r in ws:
     if r[0] and section and r[0] in people:
         people[r[0]][section] = [int(v or 0) for v in r[2:23]]
 stack_cols = cols
+
+# ---- optional: override the "before" stacks with the history summary workbook ----
+def first_name(n):
+    n = re.sub(r'^(ศ\.|รศ\.|ผศ\.|อ\.|ดร\.|นางสาว|นาง|นาย)+', '', str(n).split(' / ')[0].strip())
+    return n.split()[0].rstrip('์').lower() if n else ''
+
+if base_src:
+    hist = {}  # (kind, first name) -> 21 counts
+    kind = None
+    for r in openpyxl.load_workbook(base_src, data_only=True).worksheets[0].iter_rows(values_only=True):
+        if isinstance(r[0], str) and r[0].startswith('ตารางที่'):
+            kind = None if 'สรุปรวม' in r[0] else ('teacher' if 'อาจารย์' in r[0] else 'staff')
+            continue
+        if not kind or not r[0] or r[0] == 'ชื่อ':
+            continue
+        vals = [int(v or 0) for v in r[1:23] if v is not None]
+        vals = vals[:-1]  # last filled column is the row total
+        v = hist.setdefault((kind, first_name(r[0])), [0] * 21)
+        for i, x in enumerate(vals):
+            v[i] += x
+    ALIAS = {'พีชชา': 'พิชชา'}  # spelled differently in the two files
+    used = set()
+    for p in people.values():
+        key = (p['kind'], ALIAS.get(first_name(p['name']), first_name(p['name'])))
+        base = hist.get(key, [0] * 21)
+        used.add(key)
+        old_b, old_a = p.get('before', [0] * 21), p.get('after', [0] * 21)
+        p['before'] = base
+        p['after'] = [b + a - o for b, a, o in zip(base, old_a, old_b)]
+    unmatched = sorted(k[1] for k in hist if k not in used and sum(hist[k]))
+    print('history rows with no person this round:', ', '.join(unmatched) or '-')
 
 # ---- slots & days ----
 slots = sorted({(d['date'], d['time'], d['p']) for d in duties})
