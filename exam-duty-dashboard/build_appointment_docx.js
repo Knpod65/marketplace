@@ -50,7 +50,7 @@ const para = (children, o = {}) => new Paragraph({
   pageBreakBefore: o.pageBreakBefore,
 });
 const blank = (pt = PT) => para('', { pt });
-const justified = (text, o = {}) => para(text, { align: AlignmentType.THAI_DISTRIBUTE, ...o });
+const justified = (text, o = {}) => para(text, { align: AlignmentType.JUSTIFIED, ...o });
 
 const border = { style: BorderStyle.SINGLE, size: 6, color: '000000' };
 const borders = { top: border, bottom: border, left: border, right: border };
