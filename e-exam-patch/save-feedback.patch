@@ -1,0 +1,113 @@
+--- a/Index.html
++++ b/Index.html
+@@ -3602,7 +3602,7 @@
+   // ข้อความแจ้งผลเป็นการยืนยันเพียงอย่างเดียวว่าการกดสำเร็จหรือไม่ ถ้าไม่ประกาศ
+   // ผู้ใช้เครื่องอ่านหน้าจอจะไม่รู้เลยว่าเกิดอะไรขึ้นหลังกดปุ่ม
+   if(!r){ r = el('<div class="toast-region" id="toast-region" role="status" aria-live="polite" aria-atomic="false" style="position:fixed;right:20px;bottom:20px;z-index:100;display:grid;gap:8px;max-width:min(380px,calc(100% - 40px))"></div>'); document.body.appendChild(r); }
+-  var t = el('<div class="toast ' + (kind||'ok') + '"' + (kind==='error'?' role="alert"':'') + ' style=""padding:11px 14px;border:1px solid #e2e6ef;border-radius:12px;background:#fff;box-shadow:0 20px 52px rgba(62,43,64,.11);font-size:.84rem;animation:toastin .18s ease-out' + (kind==='error'?';border-color:#efc8cf;background:#fff4f6;color:#943c4c':';border-color:#badfcd;background:#f1fbf6;color:#236449') + '">' + esc(msg) + '</div>');
++  var t = el('<div class="toast ' + (kind||'ok') + '"' + (kind==='error'?' role="alert"':'') + ' style="padding:11px 14px;border:1px solid #e2e6ef;border-radius:12px;background:#fff;box-shadow:0 20px 52px rgba(62,43,64,.11);font-size:.84rem;animation:toastin .18s ease-out' + (kind==='error'?';border-color:#efc8cf;background:#fff4f6;color:#943c4c':';border-color:#badfcd;background:#f1fbf6;color:#236449') + '">' + esc(msg) + '</div>');
+   r.appendChild(t);
+   setTimeout(function(){ t.remove(); }, 3600);
+ }
+@@ -4441,8 +4441,9 @@
+   ).then(function(){
+     APP_CACHE.lastFetch = 0;
+     clearLocalDraft_(w_state && w_state.section ? w_state.section.sectionKey : '');
+-    showToast2(state_lang==='en'?'Saved successfully':'บันทึกข้อมูลเรียบร้อย', 'ok');
++    if (w_state) w_state.lastSavedAt = new Date();
+     restore();
++    updateSavedStamp_();
+     var hint = document.querySelector('.wizard-panel [role=note]');
+     if (hint && w_state && w_state.draft.dateConfirmed) hint.remove();
+   }).catch(function(err){
+@@ -4452,6 +4453,61 @@
+ }
+ 
+ 
++/** เวลาแบบ 17:26 ตามเวลาไทย (ใช้ bangkokParts_ ตัวเดียวกับทุกจุดบนหน้าจอ) */
++function hhmm_(d) {
++  var p = bangkokParts_(d);
++  return p ? p.hh + ':' + p.mm : '';
++}
++
++/** เติมข้อความ "บันทึกแล้ว ✓ 17:26" ข้างปุ่มบันทึก ถ้าบันทึกไปแล้วในแบบฟอร์มนี้ */
++function updateSavedStamp_() {
++  var stamp = document.getElementById('saved-stamp');
++  if (!stamp) return;
++  var at = w_state && w_state.lastSavedAt;
++  stamp.textContent = at ? (state_lang === 'en' ? 'Saved ✓ ' : 'บันทึกแล้ว ✓ ') + hhmm_(at) : '';
++}
++
++/**
++ * หน้าต่างแจ้งว่าส่งข้อมูลสำเร็จ แสดงค้างไว้จนกว่าผู้ใช้จะกดปิด แล้วจึงกลับหน้าหลัก
++ * เดิมกดยืนยันแล้วเด้งกลับหน้าหลักทันทีพร้อมป้ายเล็ก ๆ 3 วินาที และในรอบส่งไฟล์
++ * เครื่องหมาย "สำเร็จ" เป็นสีเขียวอยู่ก่อนแล้ว ผู้ใช้จึงไม่รู้ว่าระบบรับข้อมูลแล้ว
++ */
++function showSubmitSuccessModal_(section, files, onDone) {
++  var en = state_lang === 'en';
++  var now = new Date();
++  var fileList = (files || []).filter(function (f) { return f && f.id; });
++  var filesHtml = fileList.length
++    ? '<ul style="margin:6px 0 0;padding-left:18px;font-size:.86rem;color:#1e2f56">' +
++        fileList.map(function (f) { return '<li>' + esc(f.name || '') + '</li>'; }).join('') + '</ul>'
++    : '';
++  var overlay = el('<div class="overlay" style="position:fixed;inset:0;z-index:95;background:rgba(26,33,54,.42);display:grid;place-items:center;padding:16px">' +
++    '<div class="modal" style="width:min(420px,100%);border:1px solid #badfcd;border-radius:18px;background:#fff;box-shadow:0 20px 52px rgba(62,43,64,.16);padding:24px 22px 20px;text-align:center">' +
++      '<div style="width:56px;height:56px;margin:0 auto 12px;border-radius:99px;background:#e9f4ee;color:#3d7b62;display:grid;place-items:center">' +
++        '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px"><path d="M20 6 9 17l-5-5"/></svg></div>' +
++      '<h3 style="margin:0 0 6px;font-size:1.15rem;color:#236449">' + (en ? 'Submitted successfully' : 'บันทึกและส่งข้อมูลสำเร็จ') + '</h3>' +
++      '<p style="margin:0;color:#3c4560;font-size:.9rem">' + esc(section.courseCode) + (en ? ' Sec ' : ' ตอน ') + esc(section.sec) +
++        '<br><span style="color:#666f85;font-size:.84rem">' + esc(section.courseTitle || '') + '</span></p>' +
++      '<div style="margin:14px 0 0;padding:11px 13px;border:1px solid #e2e6ef;border-radius:12px;background:#fbfaff;text-align:left;font-size:.86rem;color:#3c4560">' +
++        (en ? 'Received at ' : 'ระบบได้รับเมื่อ ') + '<strong>' + esc(fmtDateTimeIntl_(now)) + (en ? '' : ' น.') + '</strong>' +
++        (fileList.length ? '<div style="margin-top:8px">' + (en ? 'Exam files received:' : 'ไฟล์ข้อสอบที่ได้รับ:') + filesHtml + '</div>' : '') +
++      '</div>' +
++      '<p style="margin:12px 0 0;color:#236449;font-size:.86rem;font-weight:600">' + (en ? 'No need to submit again.' : 'ไม่ต้องส่งซ้ำ หากต้องการแก้ไขภายหลัง กด "แก้ไข" ที่หน้าหลักได้') + '</p>' +
++      '<button type="button" class="btn-primary" id="submit-ok" style="margin-top:16px;width:100%;padding:11px 16px;border-radius:11px;background:linear-gradient(135deg,#33518c,#1e2f56);color:#fff;font-weight:700;border:0;cursor:pointer">' + (en ? 'Back to home' : 'กลับหน้าหลัก') + '</button>' +
++    '</div></div>');
++  var done = false;
++  function finish() {
++    if (done) return;
++    done = true;
++    overlay.remove();
++    if (typeof onDone === 'function') onDone();
++  }
++  overlay.querySelector('#submit-ok').addEventListener('click', function () {
++    if (overlay.__closeAccessible) overlay.__closeAccessible(); else finish();
++  });
++  document.body.appendChild(overlay);
++  makeDialogAccessible_(overlay, { label: en ? 'Submitted successfully' : 'บันทึกและส่งข้อมูลสำเร็จ', initialFocus: '#submit-ok', onClose: finish });
++}
++
+ function wizardActions(step, nextEnabled){
+   var actions = el('<div class="wizard-actions" style="position:sticky;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:10px;margin:20px -22px -22px;padding:13px 22px;border-top:1px solid #e2e6ef;background:rgba(255,255,255,.96);backdrop-filter:blur(10px)"><div></div><div></div></div>');
+   var left = actions.firstElementChild, right = actions.lastElementChild;
+@@ -4460,6 +4516,9 @@
+   var save = el('<button type="button" id="manual-save-btn" class="btn-ghost" style="display:inline-flex;align-items:center;gap:6px;border:1px solid #ccd3e2;border-radius:11px;font-weight:700;font-size:.86rem;background:#fff;color:#28406f;padding:8px 14px;cursor:pointer;margin-right:10px;">' + saveIcon + ' ' + (state_lang==='en'?'Save':'บันทึก') + '</button>');
+   save.addEventListener('click', manualSaveDraft);
+   left.appendChild(save);
++  // ข้อความ "บันทึกแล้ว ✓ เวลา" ค้างอยู่ข้างปุ่ม (ไม่ใช่ป้ายที่เด้งแล้วหาย) และยังอยู่เมื่อเปลี่ยนขั้น
++  left.appendChild(el('<span id="saved-stamp" role="status" aria-live="polite" style="display:inline-flex;align-items:center;gap:4px;margin-right:10px;font-size:.82rem;font-weight:700;color:#236449"></span>'));
++  window.setTimeout(updateSavedStamp_, 0);
+ 
+   if (step > 1){
+     var back = el('<button type="button" class="btn-ghost" style="border:0;border-radius:11px;font-weight:700;font-size:.86rem;background:transparent;color:#28406f;text-decoration:underline;padding:8px 4px;cursor:pointer">‹ ' + tr('backBtnLabel') + '</button>');
+@@ -5082,11 +5141,14 @@
+       'saveExamResponse',
+       WRITE_RPC_TIMEOUT_MS
+     ).then(function(){
+-      showToast2(state_lang==='en'?'Submitted successfully!':'ยืนยันข้อมูลและส่งเรียบร้อยแล้ว!', 'ok');
+-      clearLocalDraft_(w_state.section.sectionKey);
+-      w_state = null;
++      var section = w_state.section;
++      var files = (w_state.draft && w_state.draft.files) || [];
++      clearLocalDraft_(section.sectionKey);
+       APP_CACHE.lastFetch = 0;   // re-fetch so the submitted status shows at once
+-      renderHome(true);
++      showSubmitSuccessModal_(section, files, function () {
++        w_state = null;
++        renderHome(true);
++      });
+     }).catch(function(err){
+       btn.disabled = false;
+       btn.innerHTML = state_lang==='en'?'Submit':'ยืนยันข้อมูลฉบับใช้งาน';
