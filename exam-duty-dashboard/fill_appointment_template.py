@@ -53,6 +53,25 @@ def unhighlight(el):
         h.getparent().remove(h)
 
 
+SMALL_PT = 10   # size for lines marked "small" (e.g. the long AUD room name)
+
+
+def set_size(r, pt):
+    rpr = r.find(f'{W}rPr')
+    if rpr is None:
+        rpr = etree.Element(f'{W}rPr')
+        r.insert(0, rpr)
+    for tag in ('sz', 'szCs'):
+        el = rpr.find(f'{W}{tag}')
+        if el is None:
+            el = etree.SubElement(rpr, f'{W}{tag}')
+        el.set(f'{W}val', str(pt * 2))
+    # keep schema order: sz, szCs must precede highlight/lang etc.
+    for tag in ('highlight', 'u', 'effect', 'shd', 'vertAlign', 'rtl', 'cs', 'em', 'lang', 'eastAsianLayout', 'specVanish', 'oMath'):
+        for el in rpr.findall(f'{W}{tag}'):
+            rpr.remove(el); rpr.append(el)
+
+
 def set_cell(tc, value):
     lines = value if isinstance(value, list) else [value]
     paras = tc.findall(f'{W}p')
@@ -63,11 +82,14 @@ def set_cell(tc, value):
         p = proto if i == 0 else copy.deepcopy(proto)
         if i:
             proto.addnext(p) if i == 1 else tc.findall(f'{W}p')[-1].addnext(p)
+        small = isinstance(line, dict) and line.get('small')
         ts = list(p.iter(f'{W}t'))
         if ts:
-            ts[0].text = str(line)
+            ts[0].text = line['text'] if isinstance(line, dict) else str(line)
             for t in ts[1:]:
                 t.text = ''
+            if small:
+                set_size(ts[0].getparent(), SMALL_PT)
 
 
 def fill_table(tbl, rows):

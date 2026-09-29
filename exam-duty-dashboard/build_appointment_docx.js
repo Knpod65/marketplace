@@ -23,6 +23,7 @@ const ORDER = {
   orderedOn: '21 สิงหาคม พ.ศ. 2569',
   signer: 'รองศาสตราจารย์ ดร.ไพลิน ภู่จีนาพันธุ์',
   signerTitle: 'คณบดีคณะรัฐศาสตร์และรัฐประศาสนศาสตร์',
+  includeOpeners: false,   // room-opening duty is not listed in the letters
   contact: 'งานบริการการศึกษา คณะรัฐศาสตร์และรัฐประศาสนศาสตร์ โทร. 053-941863',
 };
 
@@ -150,6 +151,8 @@ function thaiDate(s) {
   return `${DOW[(d.getDay() + 6) % 7]} ${d.getDate()} ${MON[d.getMonth()]} ${d.getFullYear() + 543}`;
 }
 const fmtTime = t => t.replace('-', ' - ');
+const AUD = 'ห้องประชุมใหญ่ อาคาร 50 ปีฯ';   // written small (10pt) so it fits the cell
+const roomLines = r => r === 'AUD50' ? [{ text: AUD, small: true }] : [fmtRoom(r)];
 const fmtRoom = r => r.startsWith('ECON') ? 'คณะเศรษฐศาสตร์ (แจ้งเลขห้องภายหลัง)' : r.replace(/^([A-Z]+)(\d)/, '$1 $2');
 function secLabel(e) {   // CMU style: course lec lab
   const k = String(e.key).split('|');
@@ -175,15 +178,16 @@ function rowsFor(data, pid) {
   for (const d of mine) {
     if (d.role === 'proctor' || d.role === 'own') {
       const secs = (data.rooms[`${d.date}|${d.time}|${d.room}`] || []).map(secLabel);
-      out.push({ day: thaiDate(d.date), time: fmtTime(d.time), rooms: fmtRoom(d.room), courses: secs.length ? secs : ['–'], role: ROLE[d.role] });
+      out.push({ day: thaiDate(d.date), time: fmtTime(d.time), rooms: roomLines(d.room), courses: secs.length ? secs : ['–'], role: ROLE[d.role] });
     } else if (d.role === 'dist') {
       const name = data.people.find(p => p.id === pid).name;
       const b = (data.distBldg || {})[`${d.date}|${d.time}|${name}`] || 'PS';
       const rooms = slotRooms(d.date, d.time).filter(r => (bldg[r] || 'PS') === b);
       out.push({ day: thaiDate(d.date), time: fmtTime(d.time),
-        rooms: b === 'EC' ? ['คณะเศรษฐศาสตร์ (แจ้งเลขห้องภายหลัง)'] : [compactRooms(rooms.sort())],
+        rooms: b === 'EC' ? ['คณะเศรษฐศาสตร์ (แจ้งเลขห้องภายหลัง)']
+          : [...(rooms.includes('AUD50') ? roomLines('AUD50') : []), compactRooms(rooms.filter(r => r !== 'AUD50').sort())].filter(Boolean),
         courses: ['ทุกกระบวนวิชาที่สอบในช่วงเวลานี้'], role: ROLE.dist });
-    } else if (d.role === 'opener') {  // one duty per day: open every PS room used that day
+    } else if (d.role === 'opener' && ORDER.includeOpeners) {  // one duty per day: open every PS room used that day
       const keys = Object.keys(data.rooms).filter(k => k.startsWith(d.date + '|') && (bldg[k.split('|')[2]] || 'PS') === 'PS');
       const times = [...new Set(keys.map(k => k.split('|')[1]))].sort();
       const rooms = [...new Set(keys.map(k => k.split('|')[2]))].sort();
@@ -205,7 +209,7 @@ async function main() {
     return;
   }
   const data = JSON.parse(fs.readFileSync(args[0], 'utf8'));
-  const people = data.people.filter(p => data.duties.some(d => d.pid === p.id));
+  const people = data.people.filter(p => rowsFor(data, p.id).length);   // opener-only people get no letter
   if (args[2] === '--rows') {   // rows only, for fill_appointment_template.py
     fs.writeFileSync(args[1], JSON.stringify(people.map(p => ({ name: cleanName(p.name), rows: rowsFor(data, p.id) })), null, 1));
     console.log(`wrote ${args[1]}: ${people.length} people`);
