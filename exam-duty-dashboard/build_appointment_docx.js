@@ -23,7 +23,8 @@ const ORDER = {
   orderedOn: '21 สิงหาคม พ.ศ. 2569',
   signer: 'รองศาสตราจารย์ ดร.ไพลิน ภู่จีนาพันธุ์',
   signerTitle: 'คณบดีคณะรัฐศาสตร์และรัฐประศาสนศาสตร์',
-  includeOpeners: false,   // room-opening duty is not listed in the letters
+  includeOpeners: false,   // letters list proctoring only: no room-opening rows
+  includeDistributors: false,   // ...and no exam-distribution rows
   contact: 'งานบริการการศึกษา คณะรัฐศาสตร์และรัฐประศาสนศาสตร์ โทร. 053-941863',
 };
 
@@ -179,7 +180,7 @@ function rowsFor(data, pid) {
     if (d.role === 'proctor' || d.role === 'own') {
       const secs = (data.rooms[`${d.date}|${d.time}|${d.room}`] || []).map(secLabel);
       out.push({ day: thaiDate(d.date), time: fmtTime(d.time), rooms: roomLines(d.room), courses: secs.length ? secs : ['–'], role: ROLE[d.role] });
-    } else if (d.role === 'dist') {
+    } else if (d.role === 'dist' && ORDER.includeDistributors) {
       const name = data.people.find(p => p.id === pid).name;
       const b = (data.distBldg || {})[`${d.date}|${d.time}|${name}`] || 'PS';
       const rooms = slotRooms(d.date, d.time).filter(r => (bldg[r] || 'PS') === b);
