@@ -1,0 +1,10 @@
+{
+  "_comment": "Manual changes applied on top of the optimizer output by build_data.py. swap: the two duties exchange people.",
+  "swaps": [
+    {
+      "note": "วรินทร พุธ 28 ต.ค. เย็น <-> พรชนก เสาร์ 31 ต.ค. เย็น (คุมสอบทั้งคู่)",
+      "a": {"name": "นางสาววรินทร สมฟอง", "date": "2026-10-28", "time": "15:30-18:30"},
+      "b": {"name": "นางสาวพรชนก เสนะสุทธิพันธุ์", "date": "2026-10-31", "time": "15:30-18:30"}
+    }
+  ]
+}

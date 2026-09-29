@@ -142,6 +142,27 @@ if base_src:
     unmatched = sorted(k[1] for k in hist if k not in used and sum(hist[k]))
     print('history rows with no person this round:', ', '.join(unmatched) or '-')
 
+# ---- manual changes on top of the optimizer (changes.json next to this script) ----
+import os
+chg_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'changes.json')
+if os.path.exists(chg_path):
+    name_to_pid = {p['name']: pid for pid, p in people.items()}
+    col = lambda d: dt.date.fromisoformat(d['date']).weekday() * 3 + int(d['p'][1]) - 1
+    for sw in json.load(open(chg_path, encoding='utf-8')).get('swaps', []):
+        pa, pb = name_to_pid[sw['a']['name']], name_to_pid[sw['b']['name']]
+        da = [d for d in duties if d['pid'] == pa and d['date'] == sw['a']['date'] and d['time'] == sw['a']['time']]
+        db = [d for d in duties if d['pid'] == pb and d['date'] == sw['b']['date'] and d['time'] == sw['b']['time']]
+        assert len(da) == 1 and len(db) == 1, f'swap not found: {sw}'
+        da, db = da[0], db[0]
+        for who, d in ((pb, da), (pa, db)):   # the new person must be free in that slot
+            assert not any(x['pid'] == who and x['date'] == d['date'] and x['time'] == d['time'] for x in duties), f'clash: {sw}'
+        da['pid'], db['pid'] = pb, pa
+        for pid, lose, gain in ((pa, da, db), (pb, db, da)):
+            if 'after' in people[pid]:
+                people[pid]['after'][col(lose)] -= 1
+                people[pid]['after'][col(gain)] += 1
+        print('applied swap:', sw.get('note', ''))
+
 # ---- slots & days ----
 slots = sorted({(d['date'], d['time'], d['p']) for d in duties})
 dates = sorted({s[0] for s in slots})
