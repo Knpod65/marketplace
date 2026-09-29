@@ -25,6 +25,7 @@ const ORDER = {
   signerTitle: 'คณบดีคณะรัฐศาสตร์และรัฐประศาสนศาสตร์',
   includeOpeners: false,   // letters list proctoring only: no room-opening rows
   includeDistributors: false,   // ...and no exam-distribution rows
+  staffOnly: true,   // letters for staff only, not lecturers
   contact: 'งานบริการการศึกษา คณะรัฐศาสตร์และรัฐประศาสนศาสตร์ โทร. 053-941863',
 };
 
@@ -210,7 +211,7 @@ async function main() {
     return;
   }
   const data = JSON.parse(fs.readFileSync(args[0], 'utf8'));
-  const people = data.people.filter(p => rowsFor(data, p.id).length);   // opener-only people get no letter
+  const people = data.people.filter(p => (!ORDER.staffOnly || p.kind === 'staff') && rowsFor(data, p.id).length);   // opener-only people get no letter
   if (args[2] === '--rows') {   // rows only, for fill_appointment_template.py
     fs.writeFileSync(args[1], JSON.stringify(people.map(p => ({ name: cleanName(p.name), rows: rowsFor(data, p.id) })), null, 1));
     console.log(`wrote ${args[1]}: ${people.length} people`);
