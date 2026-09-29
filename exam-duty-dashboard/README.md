@@ -10,8 +10,8 @@ python3 build_data.py "<ไฟล์ optimize ... .xlsx>" data.json "<ไฟล�
 python3 build_html.py data.json index.html
 python3 build_draft_xlsx.py data.json "ร่างตารางคุมสอบ_1-2569.xlsx"   # Excel ร่างตารางคุมสอบ แบบพิมพ์
 npm install docx   # ครั้งแรกครั้งเดียว
-node build_appointment_docx.js data.json "คำสั่งกรรมการคุมสอบรายบุคคล_ปลายภาค1-2569.docx"   # Word คำสั่งรายบุคคล คนละ 1 หน้า
-node build_appointment_docx.js --template "แม่แบบคำสั่งกรรมการคุมสอบ_ปลายภาค1-2569.docx"   # แม่แบบเปล่า
+node build_appointment_docx.js data.json rows.json --rows   # แถวตารางของแต่ละคน
+python3 fill_appointment_template.py "แม่แบบคำสั่งกรรมการคุมสอบ_ปลายภาค1-2569.docx" rows.json "คำสั่งกรรมการคุมสอบรายบุคคล_ปลายภาค1-2569.docx"   # เติมลงแม่แบบ Word (แก้แม่แบบใน Word ได้เลย)
 ```
 
 - `build_data.py` อ่านชีต `เวรคุมสอบ`, `ห้องสอบ`, `ภาระต่อคน`, `สแตครายวันต่อคน`, `ปัญหา`, `วันไม่ว่าง-เวรระบบอื่น`, `สรุป`

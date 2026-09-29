@@ -4,6 +4,7 @@
 // Usage:
 //   node build_appointment_docx.js data.json out.docx            one page per person, filled in
 //   node build_appointment_docx.js --template out_template.docx  blank template with {{placeholders}}
+//   node build_appointment_docx.js data.json rows.json --rows    duty rows per person (for fill_appointment_template.py)
 //
 // Needs the `docx` npm package (npm install docx).
 const fs = require('fs');
@@ -205,6 +206,11 @@ async function main() {
   }
   const data = JSON.parse(fs.readFileSync(args[0], 'utf8'));
   const people = data.people.filter(p => data.duties.some(d => d.pid === p.id));
+  if (args[2] === '--rows') {   // rows only, for fill_appointment_template.py
+    fs.writeFileSync(args[1], JSON.stringify(people.map(p => ({ name: cleanName(p.name), rows: rowsFor(data, p.id) })), null, 1));
+    console.log(`wrote ${args[1]}: ${people.length} people`);
+    return;
+  }
   doc = makeDoc(people.map(p => letter(cleanName(p.name), rowsFor(data, p.id))));
   fs.writeFileSync(args[1], await Packer.toBuffer(doc));
   console.log(`wrote ${args[1]}: ${people.length} letters`);
