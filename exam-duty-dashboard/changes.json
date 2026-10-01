@@ -1,5 +1,5 @@
 {
- "_comment": "Manual changes applied on top of the optimizer output by build_data.py, in order. swaps: two duties exchange people. replace: the 'from' person's duty in that slot goes to 'to' (course is for reference only). Requests are retried until their 'from' duty exists, so chains work.",
+ "_comment": "Manual changes applied on top of the optimizer output by build_data.py, in order. swaps: two duties exchange people. replace: the 'from' person's duty in that slot goes to 'to' (course is for reference only). Requests are retried until their 'from' duty exists, so chains work. move: a person keeps the slot but changes room. add: a section not in the optimizer run (rooms with seats, student count, owning lecturer and staff proctors).",
  "swaps": [
   {
    "note": "วรินทร พุธ 28 ต.ค. เย็น <-> พรชนก เสาร์ 31 ต.ค. เย็น (คุมสอบทั้งคู่)",
@@ -325,6 +325,54 @@
    "from": "นางสาวณัฏฐพัชร ศรีรินทร์",
    "to": "นางธีราภัณฑ์ ยะโสภา",
    "course": "128354 001"
+  }
+ ],
+ "move": [
+  {
+   "note": "อังคาร 27 ต.ค. 12-15 พีชชา ย้ายจาก PSB1312 ไปคุม PSB1306 (126101 ตอน 004)",
+   "date": "2026-10-27",
+   "time": "12:00-15:00",
+   "name": "นางสาวพีชชา กาบปินะ",
+   "from": "PSB1312",
+   "to": "PSB1306"
+  },
+  {
+   "note": "สกาวกวิน ย้ายจาก ECON-B ไป PSB1312 แทนพีชชา (ECON-B จะมีคนจากคณะเศรษฐศาสตร์มาเสริม)",
+   "date": "2026-10-27",
+   "time": "12:00-15:00",
+   "name": "นางสาวสกาวกวิน กาญจนเสมา",
+   "from": "ECON-B",
+   "to": "PSB1312"
+  }
+ ],
+ "add": [
+  {
+   "note": "127303 อ.ดร.พินสุดา สอบตามตาราง 21 ต.ค. 12-15 น. 82 คน แยก 2 ห้อง",
+   "code": "127303",
+   "sec": "001",
+   "name": "",
+   "date": "2026-10-21",
+   "time": "12:00-15:00",
+   "rooms": [
+    {
+     "room": "PSB1205",
+     "seats": 42,
+     "n": 41,
+     "teacher": "อ.ดร.พินสุดา วงศ์อนันต์",
+     "staff": [
+      "นางสาวโศศิษฐา ศรีสุข"
+     ]
+    },
+    {
+     "room": "PSB1206",
+     "seats": 42,
+     "n": 41,
+     "staff": [
+      "นายธนภัทร ปัญญาวุฒิ",
+      "นางสาวสิริมา ชินสมุทร"
+     ]
+    }
+   ]
   }
  ]
 }

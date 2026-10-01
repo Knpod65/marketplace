@@ -190,6 +190,32 @@ if os.path.exists(chg_path):
         pending = left
     print(f"applied {len(json.load(open(chg_path, encoding='utf-8')).get('replace', []))} replacements")
 
+    chg = json.load(open(chg_path, encoding='utf-8'))
+    # move: a person keeps the slot but works in another room
+    for mv in chg.get('move', []):
+        m = [d for d in duties if d['pid'] == name_to_pid[mv['name']] and d['date'] == mv['date']
+             and d['time'] == mv['time'] and d['room'] == mv['from']]
+        assert len(m) == 1, f'move not found: {mv}'
+        m[0]['room'] = mv['to']
+    # add: a section that was not in the optimizer run, with its rooms and proctors
+    for ad in chg.get('add', []):
+        period = next(d['p'] for d in duties if d['time'] == ad['time'])
+        for r in ad['rooms']:
+            key = f"{ad['date']}|{ad['time']}|{r['room']}"
+            assert key not in rooms, f'room already used: {key}'
+            rooms[key] = [{'code': ad['code'], 'sec': ad['sec'], 'name': ad.get('name', ''), 'room': r['room'],
+                           'n': r['n'], 'full': round(r['n'] / r['seats'] * 100, 1), 'teacher': r.get('teacher'),
+                           'need': len(r['staff']), 'distHelp': None, 'range': None,
+                           'key': f"{round_name}|{ad['code']}|{ad['sec']}|000"}]
+            for who in ([r['teacher']] if r.get('teacher') else []) + r['staff']:
+                pid = name_to_pid[who]
+                role = 'own' if who == r.get('teacher') else 'proctor'
+                d = {'pid': pid, 'date': ad['date'], 'time': ad['time'], 'p': period, 'role': role, 'room': r['room']}
+                duties.append(d)
+                if 'after' in people[pid]:
+                    people[pid]['after'][col(d)] += 1
+        print('added section', ad['code'], ad['sec'])
+
     # nobody may hold two duties at overlapping times
     def span(t):
         a, b = t.split('-')
