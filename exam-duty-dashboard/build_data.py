@@ -163,6 +163,48 @@ if os.path.exists(chg_path):
                 people[pid]['after'][col(gain)] += 1
         print('applied swap:', sw.get('note', ''))
 
+    # replace: the 'from' person's duty in that slot goes to 'to'. Retry until no progress,
+    # so a chain (A gives to B, B passes it on to C) works whatever the order in the file.
+    def move(d, new_pid):
+        old_pid = d['pid']
+        d['pid'] = new_pid
+        for pid, sign in ((old_pid, -1), (new_pid, 1)):
+            if 'after' in people[pid]:
+                people[pid]['after'][col(d)] += sign
+        if d['role'] == 'dist':  # the distributor's building is keyed by name
+            k_old = f"{d['date']}|{d['time']}|{people[old_pid]['name']}"
+            if k_old in dist_bldg:
+                dist_bldg[f"{d['date']}|{d['time']}|{people[new_pid]['name']}"] = dist_bldg.pop(k_old)
+    pending = list(json.load(open(chg_path, encoding='utf-8')).get('replace', []))
+    while pending:
+        left = []
+        for r in pending:
+            m = [d for d in duties if d['pid'] == name_to_pid[r['from']] and d['date'] == r['date']
+                 and d['time'] == r['time'] and d['role'] == r['role']]
+            if len(m) == 1:
+                move(m[0], name_to_pid[r['to']])
+            else:
+                left.append(r)
+        if len(left) == len(pending):
+            raise SystemExit('replace not found: ' + json.dumps(left, ensure_ascii=False))
+        pending = left
+    print(f"applied {len(json.load(open(chg_path, encoding='utf-8')).get('replace', []))} replacements")
+
+    # nobody may hold two duties at overlapping times
+    def span(t):
+        a, b = t.split('-')
+        return int(a[:2]) * 60 + int(a[3:]), int(b[:2]) * 60 + int(b[3:])
+    by = {}
+    for d in duties:
+        if d['role'] != 'opener':
+            by.setdefault((d['pid'], d['date']), []).append(d)
+    for (pid, date), ds in by.items():
+        for i, a in enumerate(ds):
+            for b in ds[i + 1:]:
+                (a0, a1), (b0, b1) = span(a['time']), span(b['time'])
+                if a0 < b1 and b0 < a1:
+                    raise SystemExit(f"clash: {people[pid]['name']} {date} {a['time']} {a['role']} / {b['time']} {b['role']}")
+
 # ---- slots & days ----
 slots = sorted({(d['date'], d['time'], d['p']) for d in duties})
 dates = sorted({s[0] for s in slots})
